@@ -4,7 +4,7 @@ difficulty: easy
 topic: array
 problem_link: https://leetcode.com/problems/contains-duplicate/
 tries: 1
-created: 2026-01-30
+created: 2026-02-01
 
 notes:
 so we are given an array of integers,
