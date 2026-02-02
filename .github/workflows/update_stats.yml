@@ -29,23 +29,23 @@ jobs:
       - name: Run stats updater
         run: python scripts/update_stats.py
 
-      # - name: Format README (Prettier)
-      #   run: |
-      #     npx prettier --write README.md
+      - name: Format README (Prettier)
+        run: npx prettier --write README.md
 
       - name: Commit and push if changed
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          git add README.md config/grind.json .cph/ LeetCode_*.py GeeksForGeeks_*.py HackerRank_*.py Codeforces_*.py 2>/dev/null || true
-
-          # Check if README or grind.json have actual changes after stats update
-          if git diff --cached --quiet; then
+          # Check BEFORE staging - this is the key difference!
+          if git diff --quiet; then
             echo "✅ No changes to commit - stats already up to date"
             exit 0
           fi
-
+          
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Now add the files
+          git add README.md config/grind.json .cph/ LeetCode_*.py GeeksForGeeks_*.py HackerRank_*.py Codeforces_*.py 2>/dev/null || true
+          
           echo "📝 Committing updated stats and configuration"
           git commit -m "chore: auto-update stats and configuration"
           git push
