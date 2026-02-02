@@ -29,9 +29,9 @@ jobs:
       - name: Run stats updater
         run: python scripts/update_stats.py
 
-      - name: Format README (Prettier)
-        run: |
-          npx prettier --write README.md
+      # - name: Format README (Prettier)
+      #   run: |
+      #     npx prettier --write README.md
 
       - name: Commit and push if changed
         run: |
