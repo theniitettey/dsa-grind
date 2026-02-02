@@ -1,7 +1,7 @@
 {
   "user": {
-    "name": "okponglozuck",
-    "github_username": "theniitettey"
+    "name": "michaelperryjnr",
+    "github_username": ""
   },
   "readme": {
     "title": "dsa grind 💪",
@@ -9,6 +9,7 @@
     "show_stats_table": true,
     "show_topics": true,
     "show_streak": true,
+    "restore_streak_when_possible": true,
     "platforms": [
       "GeeksForGeeks",
       "LeetCode",
@@ -25,40 +26,43 @@
     }
   },
   "optimization": {
-    "last_update": "2026-01-30",
-    "total_files_scanned": 8,
+    "last_update": "2026-02-02",
+    "total_files_scanned": 9,
     "cache": {
-      "total_solved": 8,
-      "total_time_mins": 17,
-      "current_streak": 2,
+      "total_solved": 9,
+      "total_time_mins": 18,
+      "current_streak": 3,
+      "longest_streak": 3,
+      "last_activity_date": "2026-01-31",
       "topics": {
-        "arrays": 5,
-        "dictionaries": 4,
+        "arrays": 6,
         "hashing": 3,
-        "sets": 2,
-        "math": 1,
+        "dictionaries": 4,
+        "sets": 3,
         "array": 3,
         "hash map": 1,
-        "voting algorithm": 1
+        "voting algorithm": 1,
+        "hash maps": 1,
+        "math": 1
       }
     }
   },
   "stats": {
-    "total_solved": 8,
+    "total_solved": 9,
     "platforms": {
-      "LeetCode": {
-        "count": 5,
-        "easy": 4,
-        "medium": 1,
-        "hard": 0
-      },
       "GeeksForGeeks": {
         "count": 3,
         "easy": 3,
         "medium": 0,
         "hard": 0
+      },
+      "LeetCode": {
+        "count": 6,
+        "easy": 4,
+        "medium": 2,
+        "hard": 0
       }
     },
-    "last_scan_timestamp": "2026-01-30"
+    "last_scan_timestamp": "2026-02-02"
   }
 }

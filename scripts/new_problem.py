@@ -139,7 +139,11 @@ def ensure_unique(path: Path) -> Path:
 
 def main() -> None:
     if len(sys.argv) < 2:
-        print("usage: python scripts/new_problem.py <url> [--ext py]")
+        print("\n" + "="*60)
+        print("NEW PROBLEM - Usage")
+        print("="*60)
+        print("python scripts/new_problem.py <url> [--ext py]")
+        print("="*60 + "\n")
         raise SystemExit(1)
 
     url = sys.argv[1].strip()
@@ -151,7 +155,12 @@ def main() -> None:
             ext = sys.argv[idx + 1].strip().lstrip(".")
 
     if not TEMPLATE_PATH.exists():
-        raise SystemExit("❌ TEMPLATE.py not found in repo root.")
+        print("\n" + "="*60)
+        print("❌ ERROR")
+        print("="*60)
+        print("TEMPLATE.py not found in repo root.")
+        print("="*60 + "\n")
+        raise SystemExit(1)
 
     platform = platform_from_url(url)
     raw_title = title_from_url(url, platform)
@@ -188,29 +197,33 @@ def main() -> None:
     )
 
     target.write_text(template, encoding="utf-8")
-    print(f"✅ Created: {target.relative_to(REPO_ROOT)}")
-    print(f"🔧 Function name: {function_name}()")
+    
+    print("\n" + "="*60)
+    print("🎯 NEW PROBLEM CREATED")
+    print("="*60)
+    print(f"Platform: {platform}")
+    print(f"File: {target.relative_to(REPO_ROOT)}")
+    print(f"Function: {function_name}()")
+    print("="*60)
 
     cph_path = create_cph_file(target)
-    print(f"🧩 Created .cph file: {cph_path.relative_to(REPO_ROOT)}")
+    print(f"📦 Created .cph file: {cph_path.relative_to(REPO_ROOT)}")
 
     # open the file in IDE, vs code, or default editor
     # using code command if available, else webbrowser module
     try:
         import subprocess
-        print("Opening the file...")
         subprocess.run(["code", str(target)], shell=True, check=True)
-        print("✅ Opened in VS Code.")
-    except Exception as e:
-        print(f"⚠️ Could not open in VS Code: {e}")
+        print(f"✅ Opened in VS Code")
+    except Exception:
         try:
             import webbrowser
-            print("Opening the file in the default editor...")
             webbrowser.open(str(target))
-            print("✅ Opened in the default editor.")
-        except Exception as e:
-            print(f"⚠️ Could not open the file automatically: {e}")
-            print(f"Please open {target} manually.")
+            print(f"✅ Opened in default editor")
+        except Exception:
+            print(f"💡 Open manually: {target}")
+    
+    print("="*60 + "\n")
 
 
 if __name__ == "__main__":

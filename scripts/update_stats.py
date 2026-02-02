@@ -267,25 +267,76 @@ def normalize_cph_paths(problems: List[Problem]) -> int:
 # Stats Calculation
 # --------------------------------------------------
 
-def calc_streak(problems: List[Problem]) -> int:
+def can_restore_streak(last_activity_date: date, today: date) -> bool:
+    """Check if streak can be restored (within 48 hours)."""
+    delta = (today - last_activity_date).days
+    return 1 <= delta <= 2  # 1 or 2 days = within 48 hours
+
+def calc_streak(problems: List[Problem], config: dict) -> tuple[int, int]:
+    """
+    Calculate current streak and longest streak.
+    Returns (current_streak, longest_streak).
+    
+    With restore_streak_when_possible enabled:
+    - If no activity today but last activity was within 48hrs (1-2 days ago), streak continues
+    - Otherwise, streak breaks and resets to 0
+    """
     dates = sorted({p.created for p in problems if p.created})
     if not dates:
-        return 0
+        return 0, 0
     
     today = datetime.now().date()
-    # If we haven't solved anything today, check if we solved something yesterday to keep streak alive
-    current_streak = 0
+    restore_enabled = config.get("readme", {}).get("restore_streak_when_possible", False)
     
-    # Check "current" streak working backwards from today or yesterday
+    # Get cached data
+    cache = config.get("optimization", {}).get("cache", {})
+    cached_longest = cache.get("longest_streak", 0)
+    last_activity_str = cache.get("last_activity_date")
+    last_activity = datetime.strptime(last_activity_str, "%Y-%m-%d").date() if last_activity_str else None
+    
+    # Calculate current streak working backwards from today
+    current_streak = 0
     check_date = today
+    
+    # If no activity today, check if we can restore the streak
     if check_date not in dates:
-        check_date = today - timedelta(days=1)
-        
+        if restore_enabled and last_activity and can_restore_streak(last_activity, today):
+            # Streak can be restored - continue from yesterday or 2 days ago
+            check_date = last_activity
+        else:
+            # Check yesterday only
+            check_date = today - timedelta(days=1)
+    
+    # Count consecutive days
     while check_date in dates:
         current_streak += 1
         check_date -= timedelta(days=1)
+    
+    # If streak broke beyond restore window, reset to 0
+    if current_streak == 0 and restore_enabled:
+        if last_activity and (today - last_activity).days > 2:
+            current_streak = 0
+    
+    # Calculate longest streak ever (scan all dates)
+    longest_streak = 0
+    temp_streak = 0
+    prev_date = None
+    
+    for date in dates:
+        if prev_date is None:
+            temp_streak = 1
+        elif (date - prev_date).days == 1:
+            temp_streak += 1
+        else:
+            temp_streak = 1
         
-    return current_streak
+        longest_streak = max(longest_streak, temp_streak)
+        prev_date = date
+    
+    # Compare with cached longest streak
+    longest_streak = max(longest_streak, cached_longest, current_streak)
+    
+    return current_streak, longest_streak
 
 def format_duration(minutes: int) -> str:
     if minutes < 60:
@@ -327,7 +378,7 @@ def generate_topics_breakdown(problems: List[Problem], config: dict) -> str:
 # Markdown Generation
 # --------------------------------------------------
 
-def generate_badges(total_solved: int, streak: int, total_time_mins: int, config: dict) -> str:
+def generate_badges(total_solved: int, current_streak: int, longest_streak: int, total_time_mins: int, config: dict) -> str:
     """Generate badges based on config settings."""
     readme_config = config.get("readme", {})
     badge_style = readme_config.get("badge_style", "for-the-badge")
@@ -337,7 +388,8 @@ def generate_badges(total_solved: int, streak: int, total_time_mins: int, config
     badges.append(f"![Solved](https://img.shields.io/badge/Solved-{total_solved}-blue?style={badge_style})")
     
     if show_streak:
-        badges.append(f"![Streak](https://img.shields.io/badge/Streak-{streak}%20Days-orange?style={badge_style})")
+        badges.append(f"![Streak](https://img.shields.io/badge/Streak-{current_streak}%20Days-orange?style={badge_style})")
+        badges.append(f"![Longest Streak](https://img.shields.io/badge/Longest%20Streak-{longest_streak}%20Days-red?style={badge_style})")
     
     time_str = format_duration(total_time_mins).replace(" ", "%20")
     badges.append(f"![Time Spent](https://img.shields.io/badge/Time%20Spent-{time_str}-success?style={badge_style})")
@@ -411,17 +463,21 @@ def update_readme(problems: List[Problem], config: dict):
     text = README.read_text(encoding="utf-8")
     
     # Calculate stats
-    streak = calc_streak(problems)
+    current_streak, longest_streak = calc_streak(problems, config)
     total_time = sum(p.time_spent_mins for p in problems)
     total_solved = len(problems)
     timestamp = datetime.now().strftime("%Y-%m-%d")
+    
+    # Get latest activity date
+    dates = sorted({p.created for p in problems if p.created})
+    last_activity_date = dates[-1].strftime("%Y-%m-%d") if dates else timestamp
     
     # Generate content based on config
     readme_config = config.get("readme", {})
     
     badges_md = ""
     if readme_config.get("show_badges", True):
-        badges_md = generate_badges(total_solved, streak, total_time, config)
+        badges_md = generate_badges(total_solved, current_streak, longest_streak, total_time, config)
     
     stats_table = ""
     if readme_config.get("show_stats_table", True):
@@ -452,7 +508,9 @@ def update_readme(problems: List[Problem], config: dict):
     config["optimization"]["total_files_scanned"] = total_solved
     config["optimization"]["cache"]["total_solved"] = total_solved
     config["optimization"]["cache"]["total_time_mins"] = total_time
-    config["optimization"]["cache"]["current_streak"] = streak
+    config["optimization"]["cache"]["current_streak"] = current_streak
+    config["optimization"]["cache"]["longest_streak"] = longest_streak
+    config["optimization"]["cache"]["last_activity_date"] = last_activity_date
     config["optimization"]["cache"]["topics"] = dict(topic_counter)
     
     # Update stats section
@@ -482,11 +540,18 @@ def update_readme(problems: List[Problem], config: dict):
     user_info = config.get("user", {})
     user_name = user_info.get("name", "")
     
+    print("\n" + "="*60)
+    print("📊 STATS UPDATE COMPLETE")
+    print("="*60)
     if user_name:
-        print(f"✅ README updated for {user_name}!")
-    
-    print(f"📊 {total_solved} problems solved, {streak} day streak!")
-    print(f"💾 Stats saved to grind.json")
+        print(f"User: {user_name}")
+    print(f"Problems Solved: {total_solved}")
+    print(f"🔥 Current Streak: {current_streak} days")
+    print(f"🏆 Longest Streak: {longest_streak} days")
+    print(f"⏱️  Total Time: {format_duration(total_time)}")
+    print("="*60)
+    print("✅ README.md updated")
+    print("💾 grind.json updated")
 
 if __name__ == "__main__":
     config = load_config()
@@ -494,4 +559,5 @@ if __name__ == "__main__":
     cph_updated = normalize_cph_paths(probs)
     update_readme(probs, config)
     if cph_updated:
-        print(f"🔧 Updated {cph_updated} .cph file(s) to use configured paths")
+        print(f"🔧 Updated {cph_updated} .cph file(s)")
+    print("="*60 + "\n")

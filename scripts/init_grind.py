@@ -47,14 +47,17 @@ def get_git_user() -> tuple[str, str]:
 def init_grind() -> None:
     """Initialize grind.json with auto-detected or manual settings."""
     
-    print("\n🔧 Initializing grind.json...\n")
+    print("\n" + "="*60)
+    print("🔧 GRIND.JSON INITIALIZATION")
+    print("="*60)
     
     # Load existing config if it exists
     if CONFIG_FILE.exists():
         with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
             config = json.load(f)
-        print("✅ Found existing config.\n")
+        print("Status: Found existing config")
     else:
+        print("Status: Creating new config")
         config = {
             "user": {},
             "readme": {
@@ -63,6 +66,7 @@ def init_grind() -> None:
                 "show_stats_table": True,
                 "show_topics": True,
                 "show_streak": True,
+                "restore_streak_when_possible": True,
                 "platforms": ["GeeksForGeeks", "LeetCode", "HackerRank", "Codeforces"],
                 "badge_style": "for-the-badge",
                 "topic_filters": {
@@ -90,12 +94,15 @@ def init_grind() -> None:
     # Auto-detect user info from git config
     git_name, git_username = get_git_user()
     
-    print("📋 How would you like to proceed?\n")
+    print("="*60)
+    print("📋 Configuration Options")
+    print("="*60)
     print("  [1] Use defaults from git config (fastest)")
-    print("  [2] Enter details now via terminal\n")
-    print("   💡 Tip: You can always update config/grind.json later\n")
+    print("  [2] Enter details manually")
+    print("\n💡 Tip: You can edit config/grind.json anytime")
+    print("="*60)
     
-    choice = input("Choose option (1 or 2) [1]: ").strip() or "1"
+    choice = input("\nChoose option (1 or 2) [1]: ").strip() or "1"
     print()
     
     if "user" not in config:
@@ -117,20 +124,25 @@ def init_grind() -> None:
         config["user"]["name"] = git_name
         config["user"]["github_username"] = git_username
     
-    # Display what we're saving
-    if config["user"]["name"]:
-        print(f"✅ User name: {config['user']['name']}")
-    if config["user"]["github_username"]:
-        print(f"✅ GitHub username: {config['user']['github_username']}")
-    print()
-    
     # Save config
     CONFIG_FILE.parent.mkdir(parents=True, exist_ok=True)
     with open(CONFIG_FILE, 'w', encoding='utf-8') as f:
         json.dump(config, f, indent=2, ensure_ascii=False)
     
-    print(f"✅ Config saved to {CONFIG_FILE.relative_to(REPO_ROOT)}")
-    print(f"📝 Edit anytime: config/grind.json\n")
+    # Display what we saved
+    print("="*60)
+    print("✅ CONFIGURATION SAVED")
+    print("="*60)
+    if config["user"]["name"]:
+        print(f"User: {config['user']['name']}")
+    if config["user"]["github_username"]:
+        print(f"GitHub: {config['user']['github_username']}")
+    print(f"Location: {CONFIG_FILE.relative_to(REPO_ROOT)}")
+    print("="*60)
+    print("\n💡 Next steps:")
+    print("   • python scripts/new_problem.py <url>")
+    print("   • python scripts/update_stats.py")
+    print("="*60 + "\n")
 
 
 

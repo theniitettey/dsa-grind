@@ -1,4 +1,4 @@
-![Solved](https://img.shields.io/badge/Solved-8-blue?style=for-the-badge) ![Streak](https://img.shields.io/badge/Streak-2%20Days-orange?style=for-the-badge) ![Time Spent](https://img.shields.io/badge/Time%20Spent-17m-success?style=for-the-badge)
+![Solved](https://img.shields.io/badge/Solved-8-blue?style=for-the-badge) ![Streak](https://img.shields.io/badge/Streak-2%20Days-orange?style=for-the-badge) ![Longest Streak](https://img.shields.io/badge/Longest%20Streak-2%20Days-red?style=for-the-badge) ![Time Spent](https://img.shields.io/badge/Time%20Spent-17m-success?style=for-the-badge)
 
 ## current stats
 
@@ -48,6 +48,166 @@ land a job.
 stop being terrible at this.
 
 **preferably in that order.**
+
+</details>
+
+---
+
+<details><summary><strong>streak system (48hr restoration)</strong></summary>
+
+### how it works
+
+the repo tracks streaks with a **48-hour restoration window** to keep you motivated without being punishing.
+
+**streak logic:**
+
+1. **Active** — solved a problem today? streak continues 🔥
+2. **Restorable** — haven't solved anything today BUT last activity was 1-2 days ago? solve today to restore your streak ⚠️
+3. **Broken** — 3+ days since last activity? streak resets to 0, but your longest streak is preserved 🏆
+
+### two types of streaks
+
+- **Current Streak** — your active consecutive day count
+- **Longest Streak** — your personal best ever (never resets)
+
+both show up in the badges at the top.
+
+### restore_streak.py
+
+use this script to check and restore your streak:
+
+```bash
+# check if streak can be restored
+python scripts/restore_streak.py
+
+# view current streak status
+python scripts/restore_streak.py status
+
+# smart restore: backdate files & git commits (within 48hr window)
+python scripts/restore_streak.py --smart
+
+# preview what smart restore would do
+python scripts/restore_streak.py --smart --dry-run
+
+# show help
+python scripts/restore_streak.py help
+```
+
+### smart restoration
+
+**what it does:**
+
+when you run `python scripts/restore_streak.py --smart`, the script:
+
+1. **finds recent problem files** that can be backdated
+2. **updates file metadata** — changes the `created:` date in problem files
+3. **modifies git history** — creates/amends commits with backdated timestamps
+4. **fills the gap** — makes it look like you solved problems on missing days
+
+**when to use:**
+
+- you forgot to commit on time
+- you solved problems but didn't push
+- your streak broke but you're within the 48hr window
+- you want your github commit history to reflect consistent activity
+
+**example:**
+
+```bash
+$ python scripts/restore_streak.py --smart
+
+============================================================
+🔧 SMART STREAK RESTORATION PLAN
+============================================================
+Mode: LIVE (will modify files and git)
+Missing Days: 2
+============================================================
+
+📝 LeetCode_Contains_Duplicate.py
+  Current date: 2026-01-30
+  New date:     2026-02-01
+
+============================================================
+
+⚠️  This will modify files and git history. Continue? (yes/no):
+```
+
+**⚠️ warning:**
+
+- modifies file content and git commit history
+- requires force push if commits already pushed: `git push --force`
+- use dry-run mode first to preview changes
+- can't undo easily — backup before running
+
+**example output:**
+
+```
+============================================================
+🔥 STREAK RESTORATION CHECK
+============================================================
+Last Activity: 2026-01-31
+Days Since Activity: 2
+Current Streak: 5 days
+Restoration Enabled: ✅ Yes
+============================================================
+✅ Streak can be restored! You have 0 day(s) remaining.
+   Solve a problem today to maintain your 5-day streak!
+
+💡 Tip: Run 'python scripts/new_problem.py' to start a new problem.
+============================================================
+```
+
+### example scenarios
+
+**scenario 1: active streak**
+
+- last activity: today
+- current streak: 5 days
+- status: ✅ active — keep going!
+
+**scenario 2: restorable streak**
+
+- last activity: yesterday or 2 days ago
+- current streak: 5 days
+- status: ⚠️ restorable — solve today to keep your streak!
+
+**scenario 3: broken streak**
+
+- last activity: 3+ days ago
+- current streak: 0 days
+- longest streak: 5 days (preserved)
+- status: ❌ broken — start fresh, but you've done 5 days before!
+
+### configuration
+
+in `config/grind.json`:
+
+```json
+{
+  "readme": {
+    "restore_streak_when_possible": true
+  }
+}
+```
+
+- **`true`** (default) — 48hr restoration window enabled
+- **`false`** — traditional streak (must solve today or yesterday)
+
+### automatic tracking
+
+when you run `python scripts/update_stats.py`, the system:
+
+1. calculates current streak (with 48hr window if enabled)
+2. updates longest streak if you beat your record
+3. tracks last activity date
+4. updates both streak badges in README
+
+### benefits
+
+- **forgiveness** — life happens, 48hrs prevents harsh resets
+- **motivation** — longest streak shows you what you're capable of
+- **transparency** — clear status feedback keeps you accountable
+- **flexibility** — can disable restoration if you want traditional tracking
 
 </details>
 
