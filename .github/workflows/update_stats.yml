@@ -38,12 +38,25 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+          # Check if README has placeholders (meaning it was reverted and needs updating)
+          if grep -q "<!-- GRIND_BADGES -->" README.md || grep -q "<!-- GRIND_STATS_TABLE -->" README.md; then
+            echo "⚠️  README has placeholders - stats need updating"
+            FORCE_COMMIT=true
+          else
+            FORCE_COMMIT=false
+          fi
+
           git add README.md config/grind.json .cph/ LeetCode_*.py GeeksForGeeks_*.py HackerRank_*.py Codeforces_*.py 2>/dev/null || true
 
           if git diff --cached --quiet; then
-            echo "No changes to commit."
+            if [ "$FORCE_COMMIT" = true ]; then
+              echo "⚠️  No staged changes but README had placeholders - something went wrong"
+              exit 1
+            fi
+            echo "✅ No changes to commit - stats already up to date"
             exit 0
           fi
 
+          echo "📝 Committing updated stats and configuration"
           git commit -m "chore: auto-update stats and configuration"
           git push
