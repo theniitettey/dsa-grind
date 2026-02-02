@@ -25,34 +25,34 @@
       "total_solved": 9,
       "total_time_mins": 18,
       "current_streak": 3,
-      "longest_streak": 3,
-      "last_activity_date": "2026-01-31",
+      "longest_streak": 4,
+      "last_activity_date": "2026-02-01",
       "topics": {
         "arrays": 6,
-        "hashing": 3,
         "dictionaries": 4,
         "sets": 3,
+        "hash maps": 1,
+        "hashing": 3,
+        "math": 1,
         "array": 3,
         "hash map": 1,
-        "voting algorithm": 1,
-        "hash maps": 1,
-        "math": 1
+        "voting algorithm": 1
       }
     }
   },
   "stats": {
     "total_solved": 9,
     "platforms": {
-      "GeeksForGeeks": {
-        "count": 3,
-        "easy": 3,
-        "medium": 0,
-        "hard": 0
-      },
       "LeetCode": {
         "count": 6,
         "easy": 4,
         "medium": 2,
+        "hard": 0
+      },
+      "GeeksForGeeks": {
+        "count": 3,
+        "easy": 3,
+        "medium": 0,
         "hard": 0
       }
     },
