@@ -48,6 +48,7 @@ def load_config() -> dict:
                 "show_badges": True,
                 "show_stats_table": True,
                 "show_streak": True,
+                "restore_streak_auto_apply": False,
                 "platforms": ["GeeksForGeeks", "LeetCode", "HackerRank", "Codeforces"],
                 "badge_style": "for-the-badge",
                 "topic_filters": {

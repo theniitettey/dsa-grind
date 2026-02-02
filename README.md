@@ -137,6 +137,7 @@ Missing Days: 2
 - modifies file content and git commit history
 - requires force push if commits already pushed: `git push --force`
 - use dry-run mode first to preview changes
+- in CI/workflows, set `restore_streak_auto_apply` to `true` in grind.json
 - can't undo easily — backup before running
 
 **example output:**

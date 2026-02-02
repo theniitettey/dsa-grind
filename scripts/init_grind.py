@@ -67,6 +67,7 @@ def init_grind() -> None:
                 "show_topics": True,
                 "show_streak": True,
                 "restore_streak_when_possible": True,
+                "restore_streak_auto_apply": False,
                 "platforms": ["GeeksForGeeks", "LeetCode", "HackerRank", "Codeforces"],
                 "badge_style": "for-the-badge",
                 "topic_filters": {

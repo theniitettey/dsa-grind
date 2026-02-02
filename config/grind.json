@@ -10,18 +10,11 @@
     "show_topics": true,
     "show_streak": true,
     "restore_streak_when_possible": true,
-    "platforms": [
-      "GeeksForGeeks",
-      "LeetCode",
-      "HackerRank",
-      "Codeforces"
-    ],
+    "restore_streak_auto_apply": true,
+    "platforms": ["GeeksForGeeks", "LeetCode", "HackerRank", "Codeforces"],
     "badge_style": "for-the-badge",
     "topic_filters": {
-      "exclude": [
-        "?",
-        "misc"
-      ],
+      "exclude": ["?", "misc"],
       "min_count": 1
     }
   },

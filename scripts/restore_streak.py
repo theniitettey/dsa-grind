@@ -173,7 +173,7 @@ def update_git_commit_date(commit_hash: str, new_date: str) -> bool:
         print(f"⚠️  Could not update git commit: {e}")
         return False
 
-def smart_restore_streak(days_to_fill: int, dry_run: bool = False) -> bool:
+def smart_restore_streak(days_to_fill: int, dry_run: bool = False, auto_confirm: bool = False) -> bool:
     """
     Smart streak restoration: updates file metadata and git history.
     
@@ -229,14 +229,17 @@ def smart_restore_streak(days_to_fill: int, dry_run: bool = False) -> bool:
     print("="*60)
     
     if dry_run:
-        print("\n💡 Run with --execute flag to apply these changes")
+        print("\n💡 Run without --dry-run to apply these changes")
         return True
     
-    # Ask for confirmation
-    response = input("\n⚠️  This will modify files and git history. Continue? (yes/no): ").strip().lower()
-    if response != 'yes':
-        print("❌ Restoration cancelled.")
-        return False
+    # Ask for confirmation (or auto-confirm in non-interactive environments)
+    if auto_confirm:
+        print("\n✅ Auto-confirm enabled (workflow mode). Proceeding...")
+    else:
+        response = input("\n⚠️  This will modify files and git history. Continue? (yes/no): ").strip().lower()
+        if response != 'yes':
+            print("❌ Restoration cancelled.")
+            return False
     
     # Apply changes
     print("\n" + "="*60)
@@ -266,7 +269,7 @@ def smart_restore_streak(days_to_fill: int, dry_run: bool = False) -> bool:
         else:
             print(f"   ❌ Failed to update file metadata")
     
-    # Create or amend commit with backdated timestamp
+    # Create backdated commits (including empty commits for missing days)
     if success_count > 0:
         print("\n🔄 Updating git history...")
         try:
@@ -278,34 +281,62 @@ def smart_restore_streak(days_to_fill: int, dry_run: bool = False) -> bool:
                 text=True,
                 check=True
             )
-            
+
+            # Build unique target dates (sorted)
+            target_dates = sorted({item['target_date'] for item in files_to_update})
+
+            # If we have staged changes, commit them on the most recent target date
+            committed_date = None
             if status.stdout.strip():
-                # Get the target date for the most recent file being restored
-                most_recent_target = files_to_update[0]['target_date']
-                dt = datetime.strptime(most_recent_target, "%Y-%m-%d")
+                committed_date = target_dates[-1]
+                dt = datetime.strptime(committed_date, "%Y-%m-%d")
                 iso_date = dt.strftime("%Y-%m-%d 12:00:00")
-                
-                # Create a new commit with the backdated timestamp
+
                 env = dict(subprocess.os.environ)
                 env['GIT_AUTHOR_DATE'] = iso_date
                 env['GIT_COMMITTER_DATE'] = iso_date
-                
+
                 result = subprocess.run(
-                    ["git", "commit", "-m", f"Restore streak: backdate to {most_recent_target}"],
+                    ["git", "commit", "-m", f"Restore streak: backdate to {committed_date}"],
                     cwd=REPO_ROOT,
                     env=env,
                     capture_output=True,
                     text=True
                 )
-                
+
                 if result.returncode == 0:
-                    print(f"   ✅ Created git commit with date: {most_recent_target}")
-                    print(f"\n💡 Remember to force push if you've already pushed: git push --force")
+                    print(f"   ✅ Created git commit with date: {committed_date}")
                 else:
                     print(f"   ⚠️  Git commit failed: {result.stderr}")
             else:
-                print("   ℹ️  No changes to commit")
-                
+                print("   ℹ️  No staged changes. Will create backdated empty commits.")
+
+            # Create empty commits for any remaining missing dates
+            for date_str in target_dates:
+                if date_str == committed_date:
+                    continue
+                dt = datetime.strptime(date_str, "%Y-%m-%d")
+                iso_date = dt.strftime("%Y-%m-%d 12:00:00")
+
+                env = dict(subprocess.os.environ)
+                env['GIT_AUTHOR_DATE'] = iso_date
+                env['GIT_COMMITTER_DATE'] = iso_date
+
+                result = subprocess.run(
+                    ["git", "commit", "--allow-empty", "-m", f"Restore streak: backdate to {date_str}"],
+                    cwd=REPO_ROOT,
+                    env=env,
+                    capture_output=True,
+                    text=True
+                )
+
+                if result.returncode == 0:
+                    print(f"   ✅ Created empty commit for: {date_str}")
+                else:
+                    print(f"   ⚠️  Empty commit failed for {date_str}: {result.stderr}")
+
+            print("\n💡 If these commits were already pushed, you may need:")
+            print("   git push --force")
         except Exception as e:
             print(f"   ⚠️  Could not update git history: {e}")
     
@@ -413,6 +444,8 @@ def main():
             config = load_config()
             cache = config.get("optimization", {}).get("cache", {})
             last_activity_date = cache.get("last_activity_date")
+            readme_cfg = config.get("readme", {})
+            auto_confirm_cfg = readme_cfg.get("restore_streak_auto_apply", False)
             
             if not last_activity_date:
                 print("❌ No previous activity found. Nothing to restore.")
@@ -426,11 +459,12 @@ def main():
                     print("   The 48-hour window has passed.")
                 return
             
-            # Check for dry-run flag
+            # Check for flags
             dry_run = "--dry-run" in sys.argv or "--preview" in sys.argv
+            auto_confirm_flag = "--yes" in sys.argv or "-y" in sys.argv
             
             # Perform smart restoration
-            smart_restore_streak(days_since, dry_run=dry_run)
+            smart_restore_streak(days_since, dry_run=dry_run, auto_confirm=auto_confirm_flag or auto_confirm_cfg)
             
         elif command in ["help", "-h", "--help"]:
             print("\n" + "="*60)
