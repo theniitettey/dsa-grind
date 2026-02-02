@@ -464,7 +464,8 @@ def update_readme(problems: List[Problem], config: dict):
     if not README.exists():
         return
 
-    text = README.read_text(encoding="utf-8")
+    old_text = README.read_text(encoding="utf-8")
+    text = old_text
     
     # Calculate stats
     current_streak, longest_streak = calc_streak(problems, config)
@@ -497,8 +498,9 @@ def update_readme(problems: List[Problem], config: dict):
     text = text.replace("<!-- GRIND_TOPICS -->", topics_md)
     text = text.replace("<!-- GRIND_TIMESTAMP -->", timestamp)
     
-    # Write updated README
-    README.write_text(text, encoding="utf-8")
+    # Only write README if content changed
+    if text != old_text:
+        README.write_text(text, encoding="utf-8")
     
     # Update optimization cache in config
     topic_counter = Counter()
