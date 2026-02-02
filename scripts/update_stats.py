@@ -519,7 +519,8 @@ def update_readme(problems: List[Problem], config: dict):
     text = replace_chunk(text, "GRIND_TOPICS", topics_md)
     text = replace_chunk(text, "GRIND_TIMESTAMP", timestamp, inline=True)
     
-    # write README, forces timestamp update
+    # Always write README to ensure git detects changes (even if content is the same)
+    # This updates the file timestamp which helps with CI/CD workflows
     README.write_text(text, encoding="utf-8")
     
     # Update optimization cache in config
