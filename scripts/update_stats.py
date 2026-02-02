@@ -492,11 +492,32 @@ def update_readme(problems: List[Problem], config: dict):
     if readme_config.get("show_topics", True):
         topics_md = generate_topics_breakdown(problems, config)
     
-    # Replace placeholders
-    text = text.replace("<!-- GRIND_BADGES -->", badges_md)
-    text = text.replace("<!-- GRIND_STATS_TABLE -->", stats_table)
-    text = text.replace("<!-- GRIND_TOPICS -->", topics_md)
-    text = text.replace("<!-- GRIND_TIMESTAMP -->", timestamp)
+    # Replace placeholders with preservation
+    def replace_chunk(content: str, marker: str, new_content: str, inline: bool = False) -> str:
+        # Pattern for existing block: <!-- MARKER --> ... <!-- MARKER_END -->
+        # Using non-greedy match
+        pattern = re.compile(rf"<!-- {marker} -->(.*?)<!-- {marker}_END -->", re.DOTALL)
+        
+        if inline:
+            formatted = f"<!-- {marker} -->{new_content}<!-- {marker}_END -->"
+        else:
+            # Match Prettier's behavior: blank line before and after content
+            formatted = f"<!-- {marker} -->\n\n{new_content}\n\n<!-- {marker}_END -->"
+        
+        if pattern.search(content):
+            return pattern.sub(formatted, content)
+        
+        # Fallback: first time replacement
+        start_marker = f"<!-- {marker} -->"
+        if start_marker in content:
+            return content.replace(start_marker, formatted)
+        
+        return content
+
+    text = replace_chunk(text, "GRIND_BADGES", badges_md)
+    text = replace_chunk(text, "GRIND_STATS_TABLE", stats_table)
+    text = replace_chunk(text, "GRIND_TOPICS", topics_md)
+    text = replace_chunk(text, "GRIND_TIMESTAMP", timestamp, inline=True)
     
     # Only write README if content changed
     if text != old_text:
