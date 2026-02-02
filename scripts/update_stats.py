@@ -95,11 +95,14 @@ PLATFORM_MAP = {
     "Codeforces": "codeforces",
 }
 
+PLATFORM_MAP_LOWER = {k.lower(): v for k, v in PLATFORM_MAP.items()}
+
 ALLOWED_EXTS = ("py", "js", "ts", "cpp", "java", "go", "rs")
 
 # File pattern: PlatformName_Anything.ext
 FILE_RE = re.compile(
-    rf"^(?P<platform>{'|'.join(map(re.escape, PLATFORM_MAP.keys()))})_.+\.({'|'.join(ALLOWED_EXTS)})$"
+    rf"^(?P<platform>{'|'.join(map(re.escape, PLATFORM_MAP.keys()))})_.+\.({'|'.join(ALLOWED_EXTS)})$",
+    re.IGNORECASE,
 )
 
 # --------------------------------------------------
@@ -156,7 +159,7 @@ def parse_file(path: Path) -> Optional[Problem]:
         return None
     
     platform_key = m.group("platform")
-    platform = PLATFORM_MAP.get(platform_key, "unknown")
+    platform = PLATFORM_MAP_LOWER.get(platform_key.lower(), "unknown")
     
     content = path.read_text(encoding="utf-8")
     
@@ -205,7 +208,7 @@ def scan_problems() -> List[Problem]:
         if not p.is_file(): continue
         if p.name.startswith("."): continue
         if p.name == "TEMPLATE.py": continue
-        if p.name == "README.md": continue
+        if p.name in ("README.md", "README.MD"): continue
         
         prob = parse_file(p)
         if prob:

@@ -1,26 +1,14 @@
-![Solved](https://img.shields.io/badge/Solved-8-blue?style=for-the-badge) ![Streak](https://img.shields.io/badge/Streak-2%20Days-orange?style=for-the-badge) ![Longest Streak](https://img.shields.io/badge/Longest%20Streak-2%20Days-red?style=for-the-badge) ![Time Spent](https://img.shields.io/badge/Time%20Spent-17m-success?style=for-the-badge)
+<!-- GRIND_BADGES -->
 
 ## current stats
 
-| Platform          | Solved | Easy | Medium | Hard | Avg Time | Avg Tries | Vibe       |
-| :---------------- | :----: | :--: | :----: | :--: | :------: | :-------: | :--------- |
-| **GeeksForGeeks** |   3    |  3   |   0    |  0   |    2m    |    1.0    | warming up |
-| **LeetCode**      |   5    |  4   |   1    |  0   |    1m    |    1.0    | warming up |
-| **HackerRank**    |   0    |  0   |   0    |  0   |    -     |     -     | ghost town |
-| **Codeforces**    |   0    |  0   |   0    |  0   |    -     |     -     | ghost town |
+<!-- GRIND_STATS_TABLE -->
 
 ### topics covered
 
-- **arrays** (5)
-- **dictionaries** (4)
-- **array** (3)
-- **hashing** (3)
-- **sets** (2)
-- **hash map** (1)
-- **math** (1)
-- **voting algorithm** (1)
+<!-- GRIND_TOPICS -->
 
-## _last updated: 2026-01-30_
+## _last updated: <!-- GRIND_TIMESTAMP -->_
 
 ---
 
