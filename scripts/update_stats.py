@@ -519,9 +519,8 @@ def update_readme(problems: List[Problem], config: dict):
     text = replace_chunk(text, "GRIND_TOPICS", topics_md)
     text = replace_chunk(text, "GRIND_TIMESTAMP", timestamp, inline=True)
     
-    # Only write README if content changed
-    if text != old_text:
-        README.write_text(text, encoding="utf-8")
+    # write README, forces timestamp update
+    README.write_text(text, encoding="utf-8")
     
     # Update optimization cache in config
     topic_counter = Counter()
