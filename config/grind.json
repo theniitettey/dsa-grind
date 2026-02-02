@@ -11,10 +11,18 @@
     "show_streak": true,
     "restore_streak_when_possible": true,
     "restore_streak_auto_apply": true,
-    "platforms": ["GeeksForGeeks", "LeetCode", "HackerRank", "Codeforces"],
+    "platforms": [
+      "GeeksForGeeks",
+      "LeetCode",
+      "HackerRank",
+      "Codeforces"
+    ],
     "badge_style": "for-the-badge",
     "topic_filters": {
-      "exclude": ["?", "misc"],
+      "exclude": [
+        "?",
+        "misc"
+      ],
       "min_count": 1
     }
   },
@@ -24,7 +32,7 @@
     "cache": {
       "total_solved": 9,
       "total_time_mins": 18,
-      "current_streak": 3,
+      "current_streak": 4,
       "longest_streak": 4,
       "last_activity_date": "2026-02-01",
       "topics": {
