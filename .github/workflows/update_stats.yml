@@ -39,13 +39,20 @@ jobs:
             echo "✅ No changes to commit - stats already up to date"
             exit 0
           fi
-          
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
-          # Now add the files
-          git add README.md config/grind.json .cph/ LeetCode_*.py GeeksForGeeks_*.py HackerRank_*.py Codeforces_*.py 2>/dev/null || true
-          
+
+          # Add the main files that always change
+          git add README.md config/grind.json
+
+          # Add optional files if they exist (don't fail if they don't)
+          git add .cph/ 2>/dev/null || true
+          git add LeetCode_*.py 2>/dev/null || true
+          git add GeeksForGeeks_*.py 2>/dev/null || true
+          git add HackerRank_*.py 2>/dev/null || true
+          git add Codeforces_*.py 2>/dev/null || true
+
           echo "📝 Committing updated stats and configuration"
           git commit -m "chore: auto-update stats and configuration"
           git push
