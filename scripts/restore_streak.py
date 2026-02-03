@@ -190,6 +190,10 @@ def smart_restore_streak(days_to_fill: int, dry_run: bool = False, auto_confirm:
         print("❌ No problem files found to restore streak with.")
         return False
     
+    print("\n⚠️  IMPORTANT: If commits already pushed to remote:")
+    print("   git push --force-with-lease")
+    print("   This rewrites history - use with caution!")
+    
     # We need files to fill the gap
     # If we're 2 days behind, we need to backdate the most recent file(s)
     today = datetime.now().date()

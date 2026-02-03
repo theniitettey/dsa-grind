@@ -16,6 +16,7 @@ import re
 import sys
 import json
 import hashlib
+import subprocess
 from pathlib import Path
 from datetime import datetime, timezone
 from urllib.parse import urlparse
@@ -212,16 +213,13 @@ def main() -> None:
     # open the file in IDE, vs code, or default editor
     # using code command if available, else webbrowser module
     try:
-        import subprocess
-        subprocess.run(["code", str(target)], shell=True, check=True)
-        print(f"✅ Opened in VS Code")
+        result = subprocess.run(["code", str(target)], shell=True, check=True)
+        if result.returncode == 0:
+            print(f"✅ Opened in VS Code")
+        else:
+            raise FileNotFoundError
     except Exception:
-        try:
-            import webbrowser
-            webbrowser.open(str(target))
-            print(f"✅ Opened in default editor")
-        except Exception:
-            print(f"💡 Open manually: {target}")
+        print(f"💡 Open manually: {target}")
     
     print("="*60 + "\n")
 

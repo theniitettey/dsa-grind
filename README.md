@@ -1,14 +1,31 @@
 <!-- GRIND_BADGES -->
 
+![Solved](https://img.shields.io/badge/Solved-0-blue?style=for-the-badge) ![Streak](https://img.shields.io/badge/Streak-0%20Days-orange?style=for-the-badge) ![Longest Streak](https://img.shields.io/badge/Longest%20Streak-0%20Days-red?style=for-the-badge) ![Time Spent](https://img.shields.io/badge/Time%20Spent-0m-success?style=for-the-badge)
+
+<!-- GRIND_BADGES_END -->
+
 ## current stats
 
 <!-- GRIND_STATS_TABLE -->
+
+| Platform          | Solved | Easy | Medium | Hard | Avg Time | Avg Tries | Vibe       |
+| :---------------- | :----: | :--: | :----: | :--: | :------: | :-------: | :--------- |
+| **GeeksForGeeks** |   0    |  0   |   0    |  0   |    -     |     -     | ghost town |
+| **LeetCode**      |   0    |  0   |   0    |  0   |    -     |     -     | ghost town |
+| **HackerRank**    |   0    |  0   |   0    |  0   |    -     |     -     | ghost town |
+| **Codeforces**    |   0    |  0   |   0    |  0   |    -     |     -     | ghost town |
+
+<!-- GRIND_STATS_TABLE_END -->
 
 ### topics covered
 
 <!-- GRIND_TOPICS -->
 
-## _last updated: <!-- GRIND_TIMESTAMP -->_
+_No topics tracked yet._
+
+<!-- GRIND_TOPICS_END -->
+
+## _last updated: <!-- GRIND_TIMESTAMP -->now<!-- GRIND_TIMESTAMP_END -->_
 
 ---
 
