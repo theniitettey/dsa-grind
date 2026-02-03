@@ -25,31 +25,19 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Check for problem file changes
-        id: check_changes
-        run: |
-          if git diff HEAD~1 --name-only | grep -E '(LeetCode|GeeksForGeeks|HackerRank|Codeforces)_.*\.py$'; then
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-          else
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: Restore streak (if within 48hr window)
-        if: steps.check_changes.outputs.has_changes == 'true'
         run: python scripts/restore_streak.py --smart --yes
         continue-on-error: true
 
       - name: Run stats updater
-        if: steps.check_changes.outputs.has_changes == 'true'
         run: python scripts/update_stats.py
 
       - name: Format README (Prettier)
-        if: steps.check_changes.outputs.has_changes == 'true'
-        run: npx prettier --check README.md || npx prettier --write README.md
+        run: npx prettier --write README.md
 
       - name: Commit and push if changed
-        if: steps.check_changes.outputs.has_changes == 'true'
         run: |
+          # Check BEFORE staging - this is the key difference!
           if git diff --quiet; then
             echo "✅ No changes to commit - stats already up to date"
             exit 0
@@ -58,18 +46,16 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+          # Add the main files that always change
           git add README.md config/grind.json
-          git add .cph/ 2>/dev/null || true
-          git add LeetCode_*.py GeeksForGeeks_*.py HackerRank_*.py Codeforces_*.py 2>/dev/null || true
 
+          # Add optional files if they exist (don't fail if they don't)
+          git add .cph/ 2>/dev/null || true
+          git add LeetCode_*.py 2>/dev/null || true
+          git add GeeksForGeeks_*.py 2>/dev/null || true
+          git add HackerRank_*.py 2>/dev/null || true
+          git add Codeforces_*.py 2>/dev/null || true
+
+          echo "📝 Committing updated stats and configuration"
           git commit -m "chore: auto-update stats and configuration"
           git push
-
-      - name: Upload logs on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: update-stats-failure-log
-          path: |
-            config/grind.json
-            README.md
