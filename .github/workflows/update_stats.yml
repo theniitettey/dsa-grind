@@ -3,6 +3,9 @@ name: Update README stats
 on:
   push:
     branches: ["main"]
+  schedule:
+    # Run every day at 12:00 AM UTC
+    - cron: "0 0 * * *"
 
 permissions:
   contents: write

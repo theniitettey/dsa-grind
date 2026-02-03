@@ -23,6 +23,41 @@ from typing import NamedTuple, Optional, List, Dict
 from urllib.parse import urlparse
 
 # --------------------------------------------------
+# Time Utilities
+# --------------------------------------------------
+
+def get_relative_time(timestamp_str: str) -> str:
+    """
+    Convert a timestamp string (YYYY-MM-DD) to relative time.
+    Returns strings like 'now', '2 days ago', '3 weeks ago', etc.
+    """
+    try:
+        target_date = datetime.strptime(timestamp_str, "%Y-%m-%d").date()
+    except (ValueError, TypeError):
+        return "unknown"
+    
+    today = datetime.now().date()
+    delta = today - target_date
+    days = delta.days
+    
+    if days == 0:
+        return "now"
+    elif days == 1:
+        return "1 day ago"
+    elif days < 7:
+        return f"{days} days ago"
+    elif days < 14:
+        weeks = days // 7
+        return f"{weeks} week ago" if weeks == 1 else f"{weeks} weeks ago"
+    elif days < 30:
+        return f"{days} days ago"
+    elif days < 60:
+        return "1 month ago"
+    else:
+        months = days // 30
+        return f"{months} month ago" if months == 1 else f"{months} months ago"
+
+# --------------------------------------------------
 # Paths
 # --------------------------------------------------
 
@@ -472,6 +507,7 @@ def update_readme(problems: List[Problem], config: dict):
     total_time = sum(p.time_spent_mins for p in problems)
     total_solved = len(problems)
     timestamp = datetime.now().strftime("%Y-%m-%d")
+    relative_timestamp = get_relative_time(timestamp)
     
     # Get latest activity date
     dates = sorted({p.created for p in problems if p.created})
@@ -517,7 +553,7 @@ def update_readme(problems: List[Problem], config: dict):
     text = replace_chunk(text, "GRIND_BADGES", badges_md)
     text = replace_chunk(text, "GRIND_STATS_TABLE", stats_table)
     text = replace_chunk(text, "GRIND_TOPICS", topics_md)
-    text = replace_chunk(text, "GRIND_TIMESTAMP", timestamp, inline=True)
+    text = replace_chunk(text, "GRIND_TIMESTAMP", relative_timestamp, inline=True)
     
     # Only write README if content changed
     if text != old_text:
