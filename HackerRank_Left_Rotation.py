@@ -37,7 +37,7 @@ original array: [1, 2, 3, 4, 5], d = 2
 
 
 time_complexity: O(n) where n = length of the array since we loop through the array once to calculate new positions
-space_complexity: O(1) since we create a new array to store the results
+space_complexity: O(1) since we modify the array in-place without using extra space
 
 edge_cases_tested:
 - empty array
@@ -64,15 +64,24 @@ class Solution:
         #2. Const space complexity approach (in-place)
         # we can reverse the first d elements, then reverse the remaining n - d elements, and finally reverse the entire array
         # this way, we can achieve the left rotation in-place with O(1) extra
-        for i in range(d // 2):
-            arr[i], arr[d - i - 1] = arr[d - i - 1], arr[i]
-        
-        for i in range(d, (n + d) // 2):
-            arr[i], arr[n - (i - d) - 1] = arr[n - (i - d) - 1], arr[i]
-        
-        for i in range(n // 2):
-            arr[i], arr[n - i - 1] = arr[n - i - 1], arr[i]
-        
+
+        # helper function to reverse a portion of the array and modify it in-place
+        def reverse(sub_arr: List[int], start: int, end: int) -> None:
+            while start < end:
+                sub_arr[start], sub_arr[end] = sub_arr[end], sub_arr[start]
+                start += 1
+                end -= 1
+    
+        d = d % n  # in case d is greater than n
+        # reverse first d elements
+        reverse(arr, 0, d - 1)
+
+        # reverse remaining n - d elements
+        reverse(arr, d, n - 1)
+
+        # reverse entire array
+        reverse(arr, 0, n - 1)
+
         return arr
 
         # this has a time complexity of O(n) since we are reversing the array three times
