@@ -1,5 +1,5 @@
 """
-time_spent: ?
+time_spent: 2 minutes (was thinking too much)
 difficulty: easy
 topic: arrays, implementation
 problem_link: https://www.hackerrank.com/challenges/array-left-rotation/problem
