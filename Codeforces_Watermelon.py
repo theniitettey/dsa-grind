@@ -19,6 +19,9 @@ so the logic is pretty straightforward...
 i almost tried to overcomplicate by actually trying to split the weight
 simulating the split
 but that is unnecessary
+with simulation, we can star from 2, split the weight into two parts
+and check if we get some w + i which is even
+then we can return "YES" and break out of the loop
 
 time_complexity: O(1) since we are just doing constant time checks
 space_complexity: O(1) since we are not using any extra space
@@ -38,6 +41,18 @@ learned:
 
 class Solution:
     def watermelon(self, w: int) -> str:
+        # 1. Simulation approach
+        # if w % 2 != 0 or w <= 2:
+        #     return "NO"
+        # else:
+        #     # we want to simulate splitting the watermelon
+        #     div = w // 2
+        #     for i in range(2, div + 1):
+        #         if (div + i) % 2 == 0:
+        #             return "YES"
+        #     return "NO"
+        
+        # 2. Direct condition checks, implementation approach
         if w > 2 and w % 2 == 0:
             return "YES"
         else:
