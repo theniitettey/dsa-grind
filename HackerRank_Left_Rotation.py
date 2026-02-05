@@ -47,6 +47,8 @@ edge_cases_tested:
 learned:
 - using modular arithmetic to calculate new positions in an array
 - in-place array manipulation techniques like reversing segments of the array
+- notice a repetitive task and create a helper function to handle it (like the reverse function)
+- this prevents code duplication and makes the main logic cleaner
 """
 
 from typing import List
