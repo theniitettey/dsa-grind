@@ -1,5 +1,5 @@
 """
-time_spent: ?
+time_spent: 1 minute
 difficulty: easy
 topic: math, implementation
 problem_link: https://codeforces.com/problemset/problem/4/A

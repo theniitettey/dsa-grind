@@ -1,0 +1,1 @@
+{"name":"Local: HackerRank_Left_Rotation","url":"c:\\Users\\PC\\Desktop\\dsa_grind\\HackerRank_Left_Rotation.py","tests":[{"id":1770253303418,"input":"5 2\n1 2 3 4 5","output":"[3, 4, 5, 1, 2]\r\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\PC\\Desktop\\dsa_grind\\HackerRank_Left_Rotation.py","group":"local","local":true}
