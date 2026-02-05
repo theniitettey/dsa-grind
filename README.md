@@ -122,7 +122,7 @@ when you run `python scripts/restore_streak.py --smart`, the script:
 $ python scripts/restore_streak.py --smart
 
 ============================================================
-🔧 SMART STREAK RESTORATION PLAN
+🔧 SMART STREAK RESTORATION PLAN (interesting)
 ============================================================
 Mode: LIVE (will modify files and git)
 Missing Days: 2
