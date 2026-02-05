@@ -34,6 +34,12 @@ original array: [1, 2, 3, 4, 5], d = 2
 - reverse first d elements: [2, 1, 3, 4, 5]
 - reverse remaining n - d elements: [2, 1, 5, 4, 3]
 - reverse entire array: [3, 4, 5, 1, 2]
+why i did d = d % n:
+if we rotate n times, we get the same array back
+so we can take d modulo n to handle cases where d is greater than n
+this gives us the effective number of rotations needed, since rotating n times results in the original array, rotating n + 1 times is effectively the same as rotating once, and so on
+and also per our reverse helper function, we might go out of bounds if d is greater than n, 
+so this also prevents that issue
 
 
 time_complexity: O(n) where n = length of the array since we loop through the array once to calculate new positions
