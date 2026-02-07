@@ -50,25 +50,9 @@ def save_config(config: dict) -> None:
 # Streak Restoration Logic
 # --------------------------------------------------
 
-def can_restore_streak(last_activity_date_str: str) -> tuple[bool, int]:
-    """
-    Check if streak can be restored (within 48 hours).
-    Returns (can_restore, days_since_activity)
-    """
-    if not last_activity_date_str:
-        return False, -1
-    
-    try:
-        last_activity = datetime.strptime(last_activity_date_str, "%Y-%m-%d").date()
-        today = datetime.now().date()
-        days_since = (today - last_activity).days
-        
-        # Within 48 hours means 1 or 2 days
-        can_restore = 1 <= days_since <= 2
-        return can_restore, days_since
-    except Exception as e:
-        print(f"❌ Error parsing date: {e}")
-        return False, -1
+def can_restore_streak(missing_days: int) -> bool:
+    """Check if streak can be restored (within 48 hours)."""
+    return 1 <= missing_days <= 2
 
 def get_problem_files() -> list[tuple[Path, datetime]]:
     """Get all problem files with their created dates."""
@@ -97,6 +81,38 @@ def get_problem_files() -> list[tuple[Path, datetime]]:
     # Sort by created date (most recent first)
     problem_files.sort(key=lambda x: x[1], reverse=True)
     return problem_files
+
+def get_activity_dates_from_files() -> list[datetime.date]:
+    """Get sorted unique activity dates from problem files."""
+    problem_files = get_problem_files()
+    dates = sorted({item[1].date() for item in problem_files})
+    return dates
+
+def get_last_activity_date_from_files() -> Optional[str]:
+    """Get latest activity date from problem files (created metadata)."""
+    dates = get_activity_dates_from_files()
+    if not dates:
+        return None
+    return dates[-1].strftime("%Y-%m-%d")
+
+def get_recent_streak_gap() -> tuple[int, Optional[str]]:
+    """Return missing days in the most recent streak gap and latest activity date."""
+    dates = get_activity_dates_from_files()
+    if not dates:
+        return -1, None
+
+    today = datetime.now().date()
+    latest = dates[-1]
+    missing_days = 0
+
+    if today > latest:
+        missing_days = (today - latest).days
+    elif today == latest and len(dates) >= 2:
+        gap = (latest - dates[-2]).days
+        if gap > 1:
+            missing_days = gap - 1
+
+    return missing_days, latest.strftime("%Y-%m-%d")
 
 def update_file_created_date(file_path: Path, new_date: str) -> bool:
     """Update the 'created' field in a problem file."""
@@ -363,17 +379,19 @@ def restore_streak() -> None:
         print("   Set 'restore_streak_when_possible': true in config/grind.json to enable.")
         return
     
-    # Get cached data
+    # Prefer live data from files to avoid stale cache
     cache = config.get("optimization", {}).get("cache", {})
-    last_activity_date = cache.get("last_activity_date")
+    missing_days, last_activity_date = get_recent_streak_gap()
+    if not last_activity_date:
+        last_activity_date = cache.get("last_activity_date")
     current_streak = cache.get("current_streak", 0)
     
     if not last_activity_date:
         print("ℹ️  No previous activity found. Start solving problems to begin your streak!")
         return
     
-    # Check if restoration is possible
-    can_restore, days_since = can_restore_streak(last_activity_date)
+    # Check if restoration is possible based on the most recent gap
+    can_restore = can_restore_streak(missing_days)
     
     today = datetime.now().date()
     last_date = datetime.strptime(last_activity_date, "%Y-%m-%d").date()
@@ -382,16 +400,16 @@ def restore_streak() -> None:
     print("🔥 STREAK RESTORATION CHECK")
     print("="*60)
     print(f"Last Activity: {last_activity_date}")
-    print(f"Days Since Activity: {days_since}")
+    print(f"Missing Days in Streak: {missing_days}")
     print(f"Current Streak: {current_streak} days")
     print(f"Restoration Enabled: {'✅ Yes' if restore_enabled else '❌ No'}")
     print("="*60)
     
-    if days_since == 0:
+    if missing_days == 0:
         print("✅ You've already solved problems today! Streak is active.")
         print(f"   Current streak: {current_streak} days")
     elif can_restore:
-        print(f"✅ Streak can be restored! You have {2 - days_since} day(s) remaining.")
+        print(f"✅ Streak can be restored! You have {2 - missing_days} day(s) remaining.")
         print(f"   Your {current_streak}-day streak can be saved!")
         print("\n" + "="*60)
         print("💡 RESTORATION OPTIONS")
@@ -403,8 +421,8 @@ def restore_streak() -> None:
         print("   → Modifies file metadata and git history")
         print("="*60)
     else:
-        if days_since > 2:
-            print(f"❌ Streak cannot be restored. It's been {days_since} days since your last activity.")
+        if missing_days > 2:
+            print(f"❌ Streak cannot be restored. Missing days: {missing_days}.")
             print(f"   The 48-hour window has passed.")
             print(f"\n   Your previous streak was: {current_streak} days")
             print("   Start a new streak by solving a problem today! 💪")
@@ -417,10 +435,11 @@ def check_streak_status() -> None:
     """Display current streak status information."""
     config = load_config()
     cache = config.get("optimization", {}).get("cache", {})
+    last_activity_file = get_last_activity_date_from_files()
     
     current_streak = cache.get("current_streak", 0)
     longest_streak = cache.get("longest_streak", 0)
-    last_activity = cache.get("last_activity_date", "Never")
+    last_activity = last_activity_file or cache.get("last_activity_date", "Never")
     total_solved = cache.get("total_solved", 0)
     
     print("\n" + "="*60)
@@ -447,19 +466,21 @@ def main():
             # Smart restoration mode
             config = load_config()
             cache = config.get("optimization", {}).get("cache", {})
-            last_activity_date = cache.get("last_activity_date")
+            missing_days, last_activity_date = get_recent_streak_gap()
+            if not last_activity_date:
+                last_activity_date = cache.get("last_activity_date")
             readme_cfg = config.get("readme", {})
             auto_confirm_cfg = readme_cfg.get("restore_streak_auto_apply", False)
             
             if not last_activity_date:
                 print("❌ No previous activity found. Nothing to restore.")
                 return
-            
-            can_restore, days_since = can_restore_streak(last_activity_date)
-            
+
+            can_restore = can_restore_streak(missing_days)
+
             if not can_restore:
-                print(f"❌ Cannot restore streak. Days since last activity: {days_since}")
-                if days_since > 2:
+                print(f"❌ Cannot restore streak. Missing days in streak: {missing_days}")
+                if missing_days > 2:
                     print("   The 48-hour window has passed.")
                 return
             
@@ -468,7 +489,7 @@ def main():
             auto_confirm_flag = "--yes" in sys.argv or "-y" in sys.argv
             
             # Perform smart restoration
-            smart_restore_streak(days_since, dry_run=dry_run, auto_confirm=auto_confirm_flag or auto_confirm_cfg)
+            smart_restore_streak(missing_days, dry_run=dry_run, auto_confirm=auto_confirm_flag or auto_confirm_cfg)
             
         elif command in ["help", "-h", "--help"]:
             print("\n" + "="*60)
