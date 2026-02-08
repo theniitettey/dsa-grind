@@ -83,7 +83,7 @@ class Solution:
         # using the formula to calcaulate the expected sum
         expected_sum = n * (n + 1) // 2
 
-        # this removes the need for using the first loop to calculate expected_sum, so now this is 0(1) at this point
+        # this removes the need for using the first loop to calculate expected_sum, so now this is O(1) at this point
 
         # but then we can just subtract while looping through the array
         # this saves us from using extra space for array_sum

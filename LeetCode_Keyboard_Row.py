@@ -18,8 +18,8 @@ this approach is efficient since checking membership in a hash set is O(1) on av
 and we only need to iterate through each word and its characters once
 
 
-time_complexity: 0(n * m) where n = number of words and m = average length of each word
-space_complexity: 0(1) since the size of the hash sets is constant and does not grow with input size
+time_complexity: O(n * m) where n = number of words and m = average length of each word
+space_complexity: O(1) since the size of the hash sets is constant and does not grow with input size
 
 edge_cases_tested:
 - empty list

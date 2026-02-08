@@ -32,7 +32,7 @@ this will give us a time complexity of O(n + m) where n is the length of the inp
 but i think it should be O(n) since m is a constant (101), so we can say O(n) for the time complexity
 and space complexity of O(m) for the count and prefix sum arrays
 
-time_complexity: 0(n) where n = the length of the input array since we loop through it a few times but the counting and prefix sum arrays are of constant size
+time_complexity: O(n) where n = the length of the input array since we loop through it a few times but the counting and prefix sum arrays are of constant size
 space_complexity: O(m) where m = the range of numbers (which is 101 in this case) for the count and prefix sum arrays
 
 edge_cases_tested:

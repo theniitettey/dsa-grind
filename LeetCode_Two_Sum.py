@@ -29,7 +29,7 @@ then we check if complement in num_to_index
 if it is, we return [num_to_index[complement], i]
 num_to_index[complement] gives us the index of the complement which is the first index
 and i is the current index in the loop which is the second index
-so basically, this approach is 0(n)
+so basically, this approach is O(n)
 we just use extra space to store the complements in a dictionary
 but it's worth it for the time complexity improvement
 i wish there was a way to do it in O(n) time and O(1) space

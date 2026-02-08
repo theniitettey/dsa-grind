@@ -44,7 +44,7 @@ if it's not 2, return false
 but that adds some extra time complexity due to the list length check, so the counter approach is more efficient
 
 time_complexity: O(n) where n = len(s1) since we traverse both strings once
-space_complexity: 0(1) since we use a fixed amount of extra space for the counter and positions
+space_complexity: O(1) since we use a fixed amount of extra space for the counter and positions
 
 edge_cases_tested:
 - strings of different lengths
@@ -91,7 +91,7 @@ class Solution:
             if s1[i] != s2[i]:
                 count_differences += 1
                 differing_positions.append(i)
-                # early stopping if more than 2 differences found, 0(1) operation
+                # early stopping if more than 2 differences found, O(1) operation
                 if count_differences > 2:
                     return False
 
