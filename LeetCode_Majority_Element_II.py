@@ -1,7 +1,7 @@
 """
 time_spent: 1 minute (solved part 1 of this)
 difficulty: medium
-topic: sets, hash maps, arrays
+topic: hash tables, hash sets, arrays
 problem_link: https://leetcode.com/problems/majority-element-ii/
 tries: 1
 created: 2026-01-31
@@ -17,28 +17,28 @@ if the count exceeds n/3, we add it to the result
 but that would be O(n^2) time complexity
 we could use Boyer-Moore Voting Algorithm extension for this, but i looked at it
 boy... that was getting complicated fast
-so instead, we could use a hash map to count occurences of each element
+so instead, we could use a hash table to count occurences of each element
 then we find the elements that appear more than n/3 times
-but i realized something, we create the dict out of nums right
+but i realized something, we create the hash table out of nums right
 and in thesame iteration, we can check if the count exceeds n/3
 and add it to the result
 so one problem arises, we could have duplicates in the result if we add it multiple times
 cos let's say an element appears 5 times, we would add it each time it exceeds n/3
 so you're thinking what i'm thinking? right?
 what data structure can we use to avoid duplicates?
-a set! perfect!
-so we can use a set to store the result
+a hash set! perfect!
+so we can use a hash set to store the result
 then convert it to a list before returning
 this way, we avoid duplicates and keep the code simple
-also we could avoid the set, and use a second pass to filter the dict
+also we could avoid the hash set, and use a second pass to filter the hash table
 but that would be less efficient
 i know you taught what if we do num in result before adding
 but that would be O(n) for each check, leading to O(n^2) in worst case
-so using a set is better here or a second pass
-but i like the set approach more for its simplicity
+so using a hash set is better here or a second pass
+but i like the hash set approach more for its simplicity
 
 time_complexity: O(n) -> we traverse the list once
-space_complexity: O(n) -> in the worst case, we store all elements in the dict
+space_complexity: O(n) -> in the worst case, we store all elements in the hash table
 
 edge_cases_tested:
 - empty list
@@ -46,8 +46,8 @@ edge_cases_tested:
 - list with no majority elements
 
 learned:
-- using a set to avoid duplicates when collecting results
-- careful consideration of time complexity when checking for duplicates, the set and list approach we considered in the notes
+- using a hash set to avoid duplicates when collecting results
+- careful consideration of time complexity when checking for duplicates, the hash set and list approach we considered in the notes
 - revisiting Boyer-Moore Voting Algorithm for multiple majorities
 - try to see if i can understand the Boyer-Moore Voting Algorithm extension for this problem later
 
@@ -80,7 +80,7 @@ class Solution:
         # 2. remove duplicates from result
         # return list(set(result))
 
-        # 3. Hash map with second pass to filter
+        # 3. hash table with second pass to filter
         # count = {}
         # for i in range(n):
         #     num = nums[i]
@@ -90,15 +90,15 @@ class Solution:
         #         count[num] = 1
         
         # result = []
-        # now we don't necessarily need a set, we can do a second pass
-        # this is because the dict keys are unique
+        # now we don't necessarily need a hash set, we can do a second pass
+        # this is because the hash table keys are unique
         # for key, val in count.items():
         #     if val > n // 3:
         #         result.append(key)
         
         # return result
 
-        # 3. Hash map with single pass to filter using a set
+        # 3. hash table with single pass to filter using a hash set
         count = {}
         result = set()
         for i in range(n):

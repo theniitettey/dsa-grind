@@ -11,7 +11,7 @@ so we are given a list of words
 and rows of an american keyboard
 we are to find the words that can be typed using letters of the alphabet on only one row of the keyboard
 to solve this problem, we can use hash sets to represent the three rows of the keyboard
-we can then iterate through each word in the input list and check if all characters of the word belong to one of the three sets
+we can then iterate through each word in the input list and check if all characters of the word belong to one of the three hash sets
 we can maintain a count of how many characters of the word belong to each row
 if the count for any row equals the length of the word, it means all characters of the word belong to that row and we can add it to our result list
 this approach is efficient since checking membership in a hash set is O(1) on average,
@@ -27,11 +27,11 @@ edge_cases_tested:
 - words with non-alphabetic characters (not specified in problem, but good to consider)
 
 learned:
-- a hash map stores key-value pairs, while a hash set only stores keys
+- a hash table stores key-value pairs, while a hash set only stores keys
 - hash set is useful for membership testing and eliminating duplicates
 - and a hash set is basically just a set in python, the syntax just caught me off guard
 - because i'm used to set()
-- also just intializing an empty {} creates a dict not a set👀
+- also just intializing an empty {} creates a hash table not a hash set👀
 """
 
 from typing import List

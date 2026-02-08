@@ -1,7 +1,7 @@
 """
 time_spent: 1 minute
 difficulty: easy
-topic: hashing, strings, dictionaries
+topic: hash tables, strings
 problem_link: https://leetcode.com/problems/valid-anagram/description/
 tries: 1
 created: 2026-02-07
@@ -13,22 +13,22 @@ so they must have the same characters with the same frequency
 you could count the frequency of each character in both strings and compare the counts
 or you could sort both strings and check if they are equal
 the first is O(n) or can be O(n * m) based on the implementation, while the second is O(n log n) due to sorting
-for my approach i want to use a dictionary
+for my approach i want to use a hash table
 now base cases we can check before we even start counting:
 - if the lengths of s and t are different, we can immediately return false
 - if s and t are the same, we can immediately return true
 now that we have cleared those base cases, we can count the frequency of characters in s and t
 then i thought... we can do this in two ways again
-- we can make a dictionary for s and a dictionary for t, then compare the two dictionaries, O(n) time complexity still but with more space used
+- we can make a hash table for s and a hash table for t, then compare the two hash tables, O(n) time complexity still but with more space used
 or we can use my thinking, which relies on this thought process:
-- we can make a dictionary for s, keeping track of the frequency of characters
-if t is indeed an anagram of s, it means, if we iterate the dictionary we can do some magic
-- if a charater in t is not in the dictionary, then we can return false immediately
-- else, we decrease the frequency of that character in the dictionary, if that frequency becomes negative, we can return false immediately
-otherwise if the frequency is zero, we can remove that character from the dictionary
-at the end we expect the dictionary to be empty, if it is not empty, we can return false, otherwise we can return true
+- we can make a hash table for s, keeping track of the frequency of characters
+if t is indeed an anagram of s, it means, if we iterate the hash table we can do some magic
+- if a charater in t is not in the hash table, then we can return false immediately
+- else, we decrease the frequency of that character in the hash table, if that frequency becomes negative, we can return false immediately
+otherwise if the frequency is zero, we can remove that character from the hash table
+at the end we expect the hash table to be empty, if it is not empty, we can return false, otherwise we can return true
 now the space complexity is tricky, '
-you need to ask yourself, at the end of the day, would the dictionary be empty?
+you need to ask yourself, at the end of the day, would the hash table be empty?
 i leave the rest to you... continue to keep the faith brave coder, you are doing great
 
 time_complexity: O(n) where n is the length of the strings, since we are iterating through both strings once
@@ -48,7 +48,7 @@ learned:
 
 alternatives:
 - sorting both strings and comparing them, which is simpler but less efficient
-- using two dictionaries to count the frequency of characters in both strings and then comparing the dictionaries
+- using two hash tables to count the frequency of characters in both strings and then comparing the hash tables
 - counting the frequency of characters in s and t simultaneously in one pass, which can be more efficient but also more complex to implement
 - however you can use the string.count(some_char)
 """
@@ -99,7 +99,7 @@ class Solution:
         # # time complexity: O(n log n) due to the sorting step
         # # space complexity: O(n) due to the sorted lists
 
-        # 2. Dictionary approach, two dictionaries
+        # 2. hash table approach, two hash tables
         # dict_s = {}
         # dict_t = {}
 
@@ -126,7 +126,7 @@ class Solution:
         # time complexity: O(n) since we are iterating through both strings once
         # space complexity: O(n) in the worst case if all characters are unique
 
-        # 3. Dictionary approach, one dictionary
+        # 3. hash table approach, one hash table
         char_count = {}
         for i in range(len(s)):
             char_s = s[i]
@@ -153,8 +153,8 @@ class Solution:
         
 
         # we could return in two ways
-        # 1. we can check if the dictionary is empty, in most languges empty is Null/None/False, so we can just return not char_count
-        # 2. we can check if the length of the dictionary is zero, which is more explicit, but also more verbose
+        # 1. we can check if the hash table is empty, in most languges empty is Null/None/False, so we can just return not char_count
+        # 2. we can check if the length of the hash table is zero, which is more explicit, but also more verbose
 
         return not char_count
         # time complexity: O(n) since we are iterating through both strings once

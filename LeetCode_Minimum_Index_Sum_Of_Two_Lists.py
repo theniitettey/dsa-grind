@@ -1,7 +1,7 @@
 """
 time_spent: 3 minutes (this was a tough one)
 difficulty: easy
-topic: arrays, hash tables, dictionaries, strings
+topic: arrays, hash tables, strings
 problem_link: https://leetcode.com/problems/minimum-index-sum-of-two-lists/
 tries: 1
 created: 2026-02-08
@@ -17,31 +17,31 @@ if it is we calculate the index sum and keep track of the minimum index sum and 
 if we find a string with a smaller index sum, we update our minimum index sum and reset our result list
 if we find a string with the same index sum, we add it to our result list
 this approach has a time complexity of O(n*m) where n and m are the lengths of list1 and list2 respectively
-we can optimize this by using a hash map, i thought of two ways for this
-which my first approach, i create a hash map for list1 where the key is the string and the value is its index
-then we iterate through list2 and for each string, we check if it is in the hash map
-then i add the index from list2 and the index from the hash map to get the index sum
+we can optimize this by using a hash table, i thought of two ways for this
+which my first approach, i create a hash table for list1 where the key is the string and the value is its index
+then we iterate through list2 and for each string, we check if it is in the hash table
+then i add the index from list2 and the index from the hash table to get the index sum
 and we keep track of the minimum index sum and the corresponding strings as before
-after i'm done, i iterate through the hash map in key value pairs
+after i'm done, i iterate through the hash table in key value pairs
 and i check if the index sum for each string is equal to the minimum index sum
 if it is, i add it to the result list
 but there was one problem with this approach, 
 it was still appending all the strings with the same index sum to the result list, 
 even if they were not common strings
 so i added an extra check, a flag
-so in the first loop, where we populate the hash map
+so in the first loop, where we populate the hash table
 instead of storing string : index, we store string : (index, flag), the flag is initially set to False
-then in the second loop, comparing the strings from list2 with the hash map, 
+then in the second loop, comparing the strings from list2 with the hash table, 
 if we find a match, we set the flag to True and calculate the new index, prev_index + current_index
-then we store (index_sum, flag) in the hash map
+then we store (index_sum, flag) in the hash table
 now in the key value pair loop,
 we check if the flag is True and if the index sum is equal to the minimum index sum
 if both conditions are satisfied, we add the string to the result list
 this way we ensure that we only add common strings to the result list
 however i got another realization, do we really need a flag or a key value pair loop at the end?
-and the answer was no, we keep thesame hash map structure, but instead of storing (index, flag),
+and the answer was no, we keep thesame hash table structure, but instead of storing (index, flag),
 and we set the minimum index sum to a very large number 
-we can store just the index in the hash map, that's for the first loop
+we can store just the index in the hash table, that's for the first loop
 now in the second loop, when we find a match, 
 we calculate the index sum and compare it with the minimum index sum like this:
 - if the index sum < minimum index sum, 
@@ -55,7 +55,7 @@ and this worked perfectly, it was much cleaner and more efficient than the previ
 
 time_complexity: O(n + m) where n and m are the lengths of list1 and list2 respectively
 space_complexity: O(n) where n is the length of list1
-                  because we are storing the strings and their indices in a hash map
+                  because we are storing the strings and their indices in a hash table
 
 edge_cases_tested:
 - if one of the lists is empty, the result should be an empty list
@@ -94,15 +94,15 @@ class Solution:
 
         # this approach has a time complexity of O(n*m) where n and m are the lengths of list1 and list2 respectively
 
-        # 2. Hash map with flag approach
+        # 2. hash table with flag approach
         # common_strings = {}
 
-        # # populate the hash map with list1
+        # # populate the hash table with list1
         # for i in range(n):
         #     string = list1[i]
         #     common_strings[string] = (i, False)  # store index and flag
 
-        # # compare list2 with the hash map
+        # # compare list2 with the hash table
         # for j in range(m):
         #     string = list2[j]
         #     if string in common_strings:
@@ -112,7 +112,7 @@ class Solution:
         #         flag = True  # set flag to True since we found a common string
         #         common_strings[string] = (index_sum, flag)  # update with index sum and set flag to True
 
-        # # iterate hash map in key value pairs to find strings with minimum index sum and flag True
+        # # iterate hash table in key value pairs to find strings with minimum index sum and flag True
         # for key, value in common_strings.items():
         #     index_sum, flag = value
         #     if flag and index_sum == min_index_sum:
@@ -121,18 +121,18 @@ class Solution:
         # return result
 
         # this approach has a time complexity of O(n + m) where n and m are the lengths of list1 and list2 respectively
-        # but it's not pure O(n + m) because we have to iterate through the hash map at the end, which can be O(n) in the worst case
+        # but it's not pure O(n + m) because we have to iterate through the hash table at the end, which can be O(n) in the worst case
         # so it's actually O(n + m + n) = O(2n + m) = O(n + m) because we drop the constant factor
 
-        # 3. Optimized hash map approach without flag
+        # 3. Optimized hash table approach without flag
         common_strings = {}
 
-        # populate the hash map with list1
+        # populate the hash table with list1
         for i in range(n):
             string = list1[i]
             common_strings[string] = i  # store index
         
-        # compare list2 with the hash map
+        # compare list2 with the hash table
         for j in range(m):
             string = list2[j]
             if string in common_strings:

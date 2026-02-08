@@ -10,9 +10,9 @@ notes:
 so we are given an array of integers,
 we are supposed to return true if any value appears at least twice in the array,
 and false if every element is distinct
-we could use a set to solve this,
-create a set from the array and find it's length
-if the length of the set is not equal to the length of the array, then there are duplicates
+we could use a hash set to solve this,
+create a hash set from the array and find its length
+if the length of the hash set is not equal to the length of the array, then there are duplicates
 but again i wanted to be language agnostic
 so i thought of sorting the array first, that would be O(n log n)
 and would take O(1) space if we sort in place
@@ -21,20 +21,20 @@ if they are, we return true
 if we finish the loop without finding any adjacent elements that are equal, we return false
 but i was like we can do better than this
 since the problem space is n we should be able to solve this in O(n)
-so i thought of using a hash map
-we can iterate through the array and check if the element is already in the hash map
+so i thought of using a hash table
+we can iterate through the array and check if the element is already in the hash table
 if it is, we return true
-if it's not, we add it to the hash map
+if it's not, we add it to the hash table
 if we finish the loop without finding any duplicate elements, we return false
 this approach takes O(n) time and O(n) space
 but i was like some of us want to over engineer sometimes
 i noticed you could use same approach but with a sliding window
-basically, we use a set to keep track of the elements we have seen so far
-then we expand the window by adding the next element to the set
-if the element is already in the set, we return true
+basically, we use a hash set to keep track of the elements we have seen so far
+then we expand the window by adding the next element to the hash set
+if the element is already in the hash set, we return true
 if we finish the loop without finding any duplicate elements, we return false
 this approach takes O(n) time and O(n) space
-you could use a hash map instead of a set, but it would take O(n) space
+you could use a hash table instead of a hash set, but it would take O(n) space
 is there a way to do this in O(1) space?
 i think if we sort the array first, we can do this in O(1) space
 can we do it without sorting?
@@ -65,8 +65,8 @@ learned:
 - then i think you're ready to go
 
 alternatives:
-- sliding window with set
-- sliding window with hash map
+- sliding window with hash set
+- sliding window with hash table
 - sorting
 """
 
@@ -74,7 +74,7 @@ from typing import List
 
 class Solution:
     def contains_duplicate(self, nums: List[int]) -> bool:
-        # first approach (set)
+        # first approach (hash set)
         # nums_set = set(nums) # this is O(n) time and O(n) space
         # nums_set_len = len(nums_set)
         # nums_len = len(nums)
@@ -112,12 +112,12 @@ class Solution:
         # time complexity: O(n^2)
         # space complexity: O(1)
 
-        # fourth_approach (sliding window with set)
+        # fourth_approach (sliding window with hash set)
         # seen_nums = set()
 
         # the idea is;
-        # we expand the window by adding the next element to the set
-        # if the element is already in the set, we return true
+        # we expand the window by adding the next element to the hash set
+        # if the element is already in the hash set, we return true
         # if we finish the loop without finding any duplicate elements, we return false
         # for i in range(len(nums)):
         #     if nums[i] in seen_nums:
@@ -128,12 +128,12 @@ class Solution:
         # time complexity: O(n)
         # space complexity: O(n)
 
-        # fifth_approach (sliding window with hash map)
+        # fifth_approach (sliding window with hash table)
         seen_nums = {}
 
         # the idea is;
-        # we expand the window by adding the next element to the hash map
-        # if the element is already in the hash map, we return true
+        # we expand the window by adding the next element to the hash table
+        # if the element is already in the hash table, we return true
         # if we finish the loop without finding any duplicate elements, we return false
         for i in range(len(nums)):
             if nums[i] in seen_nums:

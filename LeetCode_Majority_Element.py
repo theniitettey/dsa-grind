@@ -1,7 +1,7 @@
 """
 time_spent: 3 mins (i wanted to understand the Boyer-Moore Voting Algorithm too)
 difficulty: easy
-topic: array, hash map, voting algorithm
+topic: array, hash tables, voting algorithm
 problem_link: https://leetcode.com/problems/majority-element/description/
 tries: 1
 created: 2026-01-30
@@ -11,10 +11,10 @@ so we are given an array of integers, of size n
 we are supposed to return the majority element
 the majority element is the element that appears more than n/2 (floor) times
 the problem guarantees that the majority element always exists in the array
-we can use a hash map to store the counts of each number
-we can iterate through the array and for each number, we check if it's in the hash map
+we can use a hash table to store the counts of each number
+we can iterate through the array and for each number, we check if it's in the hash table
 if it is, we increment its count
-if it's not, we add it to the hash map with a count of 1
+if it's not, we add it to the hash table with a count of 1
 after updating the count, we check if the count is greater than n/2
 if it is, we return the number
 this approach takes O(n) time and O(n) space
@@ -59,7 +59,7 @@ from typing import List
 class Solution:
     def majority_element(self, nums: List[int]) -> int:
         n = len(nums)
-        # first_approach (hash map)
+        # first_approach (hash table)
         # counts = {}
         # for i in range(n):
         #     num = nums[i]

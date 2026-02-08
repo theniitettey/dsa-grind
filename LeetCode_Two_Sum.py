@@ -1,7 +1,7 @@
 """
 time_spent: 1 minute (had some higher revelations)
 difficulty: easy
-topic: arrays, dictionaries
+topic: arrays, hash tables
 problem_link: https://leetcode.com/problems/two-sum/
 tries: 1
 created: 2026-01-30
@@ -21,16 +21,16 @@ so i thought of optimizing this further
 if we have a num i and we want to find some num j that adds to target
 i.e i + j = target, we can rearrange to find j = target - i
 meaning for each num in nums, we can calculate the complement and (drum roll)
-we store the nums we've seen so far in a dictionary as num: index pairs
+we store the nums we've seen so far in a hash table as num: index pairs
 if we have seen the complement before, we can return the indices
 but the indices and return part can be confusing
-so we stored nums[i] = i in the dictionary right, so this would be first index
+so we stored nums[i] = i in the hash table right, so this would be first index
 then we check if complement in num_to_index
 if it is, we return [num_to_index[complement], i]
 num_to_index[complement] gives us the index of the complement which is the first index
 and i is the current index in the loop which is the second index
 so basically, this approach is O(n)
-we just use extra space to store the complements in a dictionary
+we just use extra space to store the complements in a hash table for O(1) lookups
 but it's worth it for the time complexity improvement
 i wish there was a way to do it in O(n) time and O(1) space
 but i don't think it's possible without modifying the input array
@@ -39,7 +39,7 @@ don't worry about that for now though
 ps: you should probably check two pointers out tho
 
 time_complexity: O(n)
-space_complexity: O(n) for the dictionary storage
+space_complexity: O(n) for the hash table storage
 
 edge_cases_tested:
 - empty array
@@ -49,10 +49,10 @@ edge_cases_tested:
 
 learned:
 - try to figure out a work around for brute force approaches
-- using a dictionary to store complements for O(1) lookups
+- using a hash table to store complements for O(1) lookups
 - rearranging equations to find complements
 - careful with indices when returning results
-- always check if the dictionary contains the complement before adding current num
+- always check if the hash table contains the complement before adding current num
 ps: for some reason, i forget the last point sometimes
 """
 
@@ -83,19 +83,19 @@ class Solution:
         # if we have a num i and we want to find some num j that adds to target
         # i.e i + j = target, we can rearrange to find j = target - i
         # meaning for each num in nums, we can calculate the complement
-        # and check if we've seen it before using a dictionary
+        # and check if we've seen it before using a hash table
         # if we have seen it before, we can return the indices
-        # so the dictionary stores num: index pairs
+        # so the hash table stores num: index pairs
         num_to_index = {}
 
         for i in range(n):# this is O(n)
             complement = target - nums[i] # O(1) operation
-            if complement in num_to_index: # O(1) average time complexity for dict lookup
+            if complement in num_to_index: # O(1) average time complexity for hash table lookup
                 return [num_to_index[complement], i]
-            num_to_index[nums[i]] = i # O(1) average time complexity for dict insertion
+            num_to_index[nums[i]] = i # O(1) average time complexity for hash table insertion
         
         # total time complexity is O(n) for this approach
-        # space complexity is O(n) for the dictionary storage
+        # space complexity is O(n) for the hash table storage
         return []
 
 

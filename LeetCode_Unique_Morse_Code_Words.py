@@ -1,7 +1,7 @@
 """
 time_spent: 2 minutes (honestly speaking👀)
 difficulty: easy
-topic: arrays, hash tables, dictionaries, strings
+topic: arrays, hash tables, strings
 problem_link: https://leetcode.com/problems/unique-morse-code-words
 tries: 1
 created: 2026-02-08
@@ -17,15 +17,15 @@ instead of using the list, the reason was i wanted kind of a straightforward way
 to get the morse code for each letter in the word,
 but from the second approach, we'll see it's not necessary, the list is enough
 so for the first approach, after the hashmap
-we create a hash set or a set to store the unique morse code representations of the words
+we create a hash set to store the unique morse code representations of the words
 then we iterate through each word in the input list,
 for each word, we initialize an empty string to build the morse code representation of the word
 then we iterate through each letter in the word,
 we get the morse code for the letter from the hashmap and append it to the string
-after we are done with the word, we add the morse code representation to the set
-after we are done with all the words, we return the size of the set as the number
-because sets only store unique values, 
-so the size of the set will give us the number of unique morse code representations
+after we are done with the word, we add the morse code representation to the hash set
+after we are done with all the words, we return the size of the hash hash set as the number
+because hash sets only store unique values, 
+so the size of the hash set will give us the number of unique morse code representations
 the second approach is similar but instead of creating a hashmap for the morse code representations,
 the list is of size 26, that is the number of letters in the English alphabet in order,
 instead of a hashmap, we can directly use the list to get the morse code for each letter,
@@ -36,8 +36,8 @@ then the index for each letter will be: index = ord(letter) - offset
 most languages have built in functions to get the ASCII value of a character,
 so we can easily calculate the index for each letter and get the morse code from the list
 this approach is more efficient and cleaner than the first approach,
-then we do the same as before, we build the morse code representation for each word and add it to the set
-after we are done with all the words, we return the size of the set as the number
+then we do the same as before, we build the morse code representation for each word and add it to the hash set
+after we are done with all the words, we return the size of the hash set as the number
 
 time_complexity: O(n * m) where n is the number of words and m is the average length of the words
 space_complexity: O(1) i think
@@ -63,7 +63,7 @@ class Solution:
         if n == 1:
             return 1
         
-        # # 1. Using hash map
+        # # 1. Using hash table
         # morse_code_map = {
         #    "a":".-",
         #    "b":"-...",
@@ -104,7 +104,7 @@ class Solution:
         #         letter = word[j]
         #         morse_code += morse_code_map[letter]
 
-        #     # add the morse code representation to the set
+        #     # add the morse code representation to the hash set
         #     unique_morse_codes.add(morse_code)
 
         # return len(unique_morse_codes)

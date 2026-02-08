@@ -1,21 +1,21 @@
 """
 time_spent: 1 minutes (doesn't mean i'm a genius)
 difficulty: easy
-topic: sets, arrays
+topic: hash sets, arrays
 problem_link: https://www.geeksforgeeks.org/problems/union-of-two-arrays3538/1
 tries: 1
 created: 2026-01-29
 
 notes:
 i tried to use solve it using just the arrays but it was getting too complicated
-so I used sets to make it easier
-basically we convert both arrays to sets to remove duplicates
-then the set union method is used to find the union of both sets, 
+so I used hash sets to make it easier
+basically we convert both arrays to hash sets to remove duplicates
+then the hash set union method is used to find the union of both hash sets, 
 this is inbuilt in python which makes it easy
 finally we convert the result back to a list and return it
 
 time_complexity: O(n + m) where n = len(a), m = len(b)
-space_complexity: O(n) for the set storage
+space_complexity: O(n) for the hash set storage
 
 edge_cases_tested:
 - empty arrays
@@ -25,7 +25,7 @@ edge_cases_tested:
 
 learned:
 - using set.union() is cleaner than manual iteration
-- converting to sets handles duplicates automatically
+- converting tohash sets handles duplicates automatically
 - list comprehension isn't always needed - sometimes built-in methods are your friend
 """
 class Solution:

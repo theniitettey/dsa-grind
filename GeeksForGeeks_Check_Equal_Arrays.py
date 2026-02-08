@@ -1,7 +1,7 @@
 """
 time_spent: 2 minutes (took a wild guess and it worked, apparently)
 difficulty: easy
-topic: arrays, hashing, dictionaries
+topic: arrays, hash tables
 problem_link: https://www.geeksforgeeks.org/problems/check-if-two-arrays-are-equal-or-not3847/1
 tries: 1
 created: 2026-01-29
@@ -13,21 +13,21 @@ i tried to think of a way to do it without using extra space but i couldn't come
 maybe in the future
 so i was like since the question says the arrays are equal if 
 both contain the same set of elementts, arrangements(or permutations) of elements don't matter
-i thought of using a dictionary to count the frequency of each element in the first array
-then i loop through the second array and decrease the frequency of each element found in the dictionary
-if an element is not found in the dictionary, we can return false right away, 
+i thought of using a hash table to count the frequency of each element in the first array
+then i loop through the second array and decrease the frequency of each element found in the hash table
+if an element is not found in the hash table, we can return false right away, 
 because that means the arrays are not equal, obviously
 then i realized i tried to do it by checking if a frequency becomes zero 
 and trying to return false if an element is found again in the second array 
-but a cleaner way is to just delete the element from the dictionary when its frequency becomes zero,
+but a cleaner way is to just delete the element from the hash table when its frequency becomes zero,
 then our first condition will take care of it
-finally, with my approach, if the dictionary is empty at the end, that means both arrays are equal, 
+finally, with my approach, if the hash table is empty at the end, that means both arrays are equal, 
 otherwise they are not
-so we just return if the dictionary is empty or not
+so we just return if the hash table is empty or not
 sigh...
 
 time_complexity: O(n + m) where n = len(a), m = len(b)
-space_complexity: O(n) for the dictionary storage
+space_complexity: O(n) for the hash table storage
 
 edge_cases_tested:
 - empty arrays
@@ -36,9 +36,9 @@ edge_cases_tested:
 - arrays with completely different elements
 
 learned:
-- deleting from dict while iterating is cleaner than tracking zero frequencies
+- deleting from hash table while iterating is cleaner than tracking zero frequencies
 - get() method is handy for default values
-- checking if dict is empty is easier than counting remaining elements
+- checking if hash table is empty is easier than counting remaining elements
 """
 
 class Solution:
