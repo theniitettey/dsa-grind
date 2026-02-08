@@ -26,7 +26,7 @@ i bet you've seen this before, it's a common distance metric in grid problems
 now for the ghosts, we need to calculate the Manhattan distance from each ghost's position to the target
 now since we now know the minimum steps for us to reach the target
 we want to figure out who'd reach the target first, us or the ghosts
-in escence we just need to see if the ghost can get to us before we get to the target
+in essence we just need to see if the ghost can get to us before we get to the target
 if the ghost can reach the target in less than or equal to the steps we need, 
 then we can't escape, because the ghost can just wait at the target and catch us when we arrive
 otherwise, if all the ghosts need more steps to reach the target than we do, then we can escape
@@ -39,11 +39,10 @@ space_complexity: O(1) because we are using a constant amount of space to store 
 
 edge_cases_tested:
 - if there are no ghosts, we can always escape, so the result should be True
-- if the target is at (0, 0), we are already at the target, so we can escape, the result should be True
 - if a ghost is already at the target, we can't escape, the result should be False
 
 learned:
-- sometimes you don't need to simulate the entire proces
+- sometimes you don't need to simulate the entire process
 - try to think, "do i really need to simulate this, or is there a mathematical way to determine the outcome?"
 - we might need some school knowledge after all, listen to your teachers, they know what they're doing
 """
