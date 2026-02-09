@@ -64,12 +64,51 @@ from typing import List
 
 class Solution:
     def group_anagrams(self, strs: List[str]) -> List[List[str]]:
-        """
-        NOTE:
-        - Function name is auto-generated from the problem title (snake_case).
-        - Rename/adjust the signature to match the platform before submitting.
-        """
-        return None
+        n = len(strs)
+        anagram_groups = {}
+        result = []
+        # # 1. Sorting approach
+        # for i in range(n):
+        #     # pick a word
+        #     word = strs[i]
+        #     # sort the word and convert to tuple
+        #     sorted_word = tuple(sorted(word))
+        #     # use the sorted tuple as key in hash table
+        #     if sorted_word in anagram_groups:
+        #         anagram_groups[sorted_word].append(word)
+        #     else:
+        #         anagram_groups[sorted_word] = [word]
+        
+        # # append the values of the hash table to result
+        # for group in anagram_groups.values():
+        #     result.append(group)
+
+        # return result
+        # # time complexity: O(n * k log k) due to sorting each string
+        # # space complexity: O(n * k) in the worst case
+
+        # 2. Counting approach with separator to avoid hash collisions
+        for i in range(n):
+            word = strs[i]
+            count = [0] * 26  # count of each character
+            for char in word:
+                count[ord(char) - ord('a')] += 1
+            
+            # create a count string with separator to avoid hash collisions
+            count_string = "#".join(str(c) for c in count)
+            
+            if count_string in anagram_groups:
+                anagram_groups[count_string].append(word)
+            else:
+                anagram_groups[count_string] = [word]
+        
+        # append the values of the hash table to result
+        for group in anagram_groups.values():
+            result.append(group)
+
+        return result
+        # time complexity: O(n * k) due to counting characters in each string
+        # space complexity: O(n * k) in the worst case
 
 
 if __name__ == "__main__":
