@@ -359,6 +359,41 @@ system > motivation.
 ---
 
 <details>
+<summary><strong>helpers</strong></summary>
+
+small utilities to keep the grind smooth.
+
+### `helpers/leet_2_cph.py`
+
+converts leetcode-style list inputs into CPH test format.
+
+**examples:**
+
+```bash
+python helpers/leet_2_cph.py [1,2,3]
+echo [[1,2],[3,4]] | python helpers/leet_2_cph.py
+```
+
+**output format:**
+
+```
+3
+1
+2
+3
+```
+
+```
+2
+1 2
+3 4
+```
+
+</details>
+
+---
+
+<details>
 <summary><strong>configuration (grind.json)</strong></summary>
 
 the `grind.json` file lets you customize how your README looks and stores optimization data.
