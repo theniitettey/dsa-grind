@@ -1,7 +1,7 @@
 """
 time_spent: 2 minutes (maybe 5 more... idk)
 difficulty: easy
-topic: strings, hash set
+topic: strings, hash sets
 problem_link: https://leetcode.com/problems/keyboard-row/
 tries: 1
 created: 2026-02-05
