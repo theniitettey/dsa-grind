@@ -1,6 +1,6 @@
 <!-- GRIND_BADGES -->
 
-![Solved](https://img.shields.io/badge/Solved-0-blue?style=for-the-badge) ![Streak](https://img.shields.io/badge/Streak-0%20Days-orange?style=for-the-badge) ![Longest Streak](https://img.shields.io/badge/Longest%20Streak-0%20Days-red?style=for-the-badge) ![Time Spent](https://img.shields.io/badge/Time%20Spent-0m-success?style=for-the-badge)
+![Solved](https://img.shields.io/badge/Solved-24-blue?style=for-the-badge) ![Streak](https://img.shields.io/badge/Streak-13%20Days-orange?style=for-the-badge) ![Longest Streak](https://img.shields.io/badge/Longest%20Streak-13%20Days-red?style=for-the-badge) ![Time Spent](https://img.shields.io/badge/Time%20Spent-45m-success?style=for-the-badge)
 
 <!-- GRIND_BADGES_END -->
 
@@ -10,10 +10,10 @@
 
 | Platform          | Solved | Easy | Medium | Hard | Avg Time | Avg Tries | Vibe       |
 | :---------------- | :----: | :--: | :----: | :--: | :------: | :-------: | :--------- |
-| **GeeksForGeeks** |   0    |  0   |   0    |  0   |    -     |     -     | ghost town |
-| **LeetCode**      |   0    |  0   |   0    |  0   |    -     |     -     | ghost town |
-| **HackerRank**    |   0    |  0   |   0    |  0   |    -     |     -     | ghost town |
-| **Codeforces**    |   0    |  0   |   0    |  0   |    -     |     -     | ghost town |
+| **GeeksForGeeks** |   3    |  3   |   0    |  0   |    2m    |    1.0    | warming up |
+| **LeetCode**      |   16   |  12  |   4    |  0   |    1m    |    1.0    | cooking    |
+| **HackerRank**    |   2    |  2   |   0    |  0   |    2m    |    1.0    | warming up |
+| **Codeforces**    |   3    |  3   |   0    |  0   |    1m    |    1.0    | warming up |
 
 <!-- GRIND_STATS_TABLE_END -->
 
@@ -21,7 +21,20 @@
 
 <!-- GRIND_TOPICS -->
 
-_No topics tracked yet._
+- **arrays** (17)
+- **hash tables** (10)
+- **strings** (8)
+- **implementation** (6)
+- **math** (6)
+- **array** (3)
+- **hash sets** (3)
+- **counting** (1)
+- **geometry** (1)
+- **hash set** (1)
+- **hashing** (1)
+- **prefix sums** (1)
+- **two pointers** (1)
+- **voting algorithm** (1)
 
 <!-- GRIND_TOPICS_END -->
 
