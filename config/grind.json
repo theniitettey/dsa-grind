@@ -42,12 +42,11 @@
         "strings": 8,
         "hash tables": 10,
         "geometry": 1,
-        "hash sets": 3,
+        "hash sets": 4,
         "array": 3,
         "counting": 1,
         "prefix sums": 1,
         "hashing": 1,
-        "hash set": 1,
         "voting algorithm": 1,
         "two pointers": 1
       }
