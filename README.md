@@ -1,6 +1,6 @@
 <!-- GRIND_BADGES -->
 
-![Solved](https://img.shields.io/badge/Solved-24-blue?style=for-the-badge) ![Streak](https://img.shields.io/badge/Streak-13%20Days-orange?style=for-the-badge) ![Longest Streak](https://img.shields.io/badge/Longest%20Streak-13%20Days-red?style=for-the-badge) ![Time Spent](https://img.shields.io/badge/Time%20Spent-45m-success?style=for-the-badge)
+![Solved](https://img.shields.io/badge/Solved-25-blue?style=for-the-badge) ![Streak](https://img.shields.io/badge/Streak-13%20Days-orange?style=for-the-badge) ![Longest Streak](https://img.shields.io/badge/Longest%20Streak-13%20Days-red?style=for-the-badge) ![Time Spent](https://img.shields.io/badge/Time%20Spent-46m-success?style=for-the-badge)
 
 <!-- GRIND_BADGES_END -->
 
@@ -13,7 +13,7 @@
 | **GeeksForGeeks** |   3    |  3   |   0    |  0   |    2m    |    1.0    | warming up |
 | **LeetCode**      |   16   |  12  |   4    |  0   |    1m    |    1.0    | cooking    |
 | **HackerRank**    |   2    |  2   |   0    |  0   |    2m    |    1.0    | warming up |
-| **Codeforces**    |   3    |  3   |   0    |  0   |    1m    |    1.0    | warming up |
+| **Codeforces**    |   4    |  4   |   0    |  0   |    1m    |    1.0    | warming up |
 
 <!-- GRIND_STATS_TABLE_END -->
 
@@ -24,8 +24,8 @@
 - **arrays** (17)
 - **hash tables** (10)
 - **strings** (8)
-- **implementation** (6)
-- **math** (6)
+- **implementation** (7)
+- **math** (7)
 - **hash sets** (4)
 - **array** (3)
 - **counting** (1)
