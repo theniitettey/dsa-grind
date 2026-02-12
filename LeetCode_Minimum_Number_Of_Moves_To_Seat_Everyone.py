@@ -53,7 +53,13 @@ class Solution:
         n = len(seats)
 
         for i in range(n):
-            moves += abs(seats[i] - students[i])
+            # python has abs() function to calculate the absolute value
+            # moves += abs(seats[i] - students[i])
+            # however we want to be language agnostic, so we can calculate the absolute value manually
+            if seats[i] > students[i]:
+                moves += seats[i] - students[i]
+            else:
+                moves += students[i] - seats[i]
 
         return moves
 
