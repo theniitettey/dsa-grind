@@ -1,7 +1,7 @@
 """
 time_spent: 5 minutes (was a tough one)
 difficulty: medium
-topic: hash table, math, implementation
+topic: hash tables, math, implementation
 problem_link: https://leetcode.com/problems/number-of-boomerangs/description/
 tries: 1
 created: 2026-02-11

@@ -1,7 +1,7 @@
 """
 time_spent: 3 mins (i wanted to understand the Boyer-Moore Voting Algorithm too)
 difficulty: easy
-topic: array, hash tables, voting algorithm
+topic: arrays, hash tables, voting algorithm
 problem_link: https://leetcode.com/problems/majority-element/description/
 tries: 1
 created: 2026-01-30

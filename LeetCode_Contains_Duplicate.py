@@ -1,7 +1,7 @@
 """
 time_spent: 1 min (spent more time documenting alternatives and thoughts)
 difficulty: easy
-topic: array
+topic: arrays
 problem_link: https://leetcode.com/problems/contains-duplicate/
 tries: 1
 created: 2026-02-01

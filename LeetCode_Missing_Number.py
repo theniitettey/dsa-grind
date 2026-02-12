@@ -1,7 +1,7 @@
 """
 time_spent: 2 minutes (don't ask me how)
 difficulty: easy
-topic: math, array
+topic: math, arrays
 problem_link: https://leetcode.com/problems/missing-number/description/
 tries: 1
 created: 2026-01-29
