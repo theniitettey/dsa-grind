@@ -300,6 +300,21 @@ keeps the README honest.
 python scripts/update_stats.py
 ```
 
+### `scripts/fix_cph_paths.py`
+
+fixes `.cph` metadata paths after cloning/forking so Competitive Companion can run testcases correctly.
+
+**what it does:**
+
+- scans `.cph/*.prob`
+- converts `srcPath` and `url` to absolute paths in your local repo
+
+**usage:**
+
+```bash
+python scripts/fix_cph_paths.py
+```
+
 ### `scripts/new_problem.py`
 
 scaffolds new problem files with one command.
