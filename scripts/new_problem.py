@@ -17,6 +17,7 @@ import sys
 import json
 import hashlib
 import subprocess
+import time
 from pathlib import Path
 from datetime import datetime, timezone
 from urllib.parse import urlparse
@@ -101,22 +102,23 @@ def to_filename(platform: str, title_slug: str, ext: str = "py") -> str:
 
 
 def create_cph_file(problem_path: Path) -> Path:
-    """Create .cph file with relative path (.\\filename format)."""
+    """Create .cph file with absolute path to the problem file."""
     cph_dir = REPO_ROOT / ".cph"
     cph_dir.mkdir(parents=True, exist_ok=True)
 
-    rel_path = f".\\{problem_path.name}"
+    abs_path = str(problem_path.resolve())
     digest = hashlib.md5(problem_path.name.encode("utf-8")).hexdigest()
     cph_path = cph_dir / f".{problem_path.name}_{digest}.prob"
 
     payload = {
         "name": f"Local: {problem_path.stem}",
-        "url": rel_path,
-        "tests": [],
+        "url": abs_path,
+        "url": abs_path,
+        "tests": [{"id": int(time.time() * 1000), "input": "", "output": ""}],
         "interactive": False,
         "memoryLimit": 1024,
         "timeLimit": 3000,
-        "srcPath": rel_path,
+        "srcPath": abs_path,
         "group": "local",
         "local": True,
     }
