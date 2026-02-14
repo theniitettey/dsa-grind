@@ -62,6 +62,12 @@ then calculate the distance from that location to the center of the matrix
 i know this is a very long explanation, but i just wanted to explain my thought process 
 and how i arrived at the solution
 
+==============================================================================================================
+||                                                                                                          ||
+||  side note: this way of calculating the distance is called the Manhattan distance,                       ||
+||  it is used in grid-based problems where you can only move in four directions (up, down, left, right)    ||
+||                                                                                                          ||
+==============================================================================================================
 
 edge_cases_tested:
 - when the 1 is already in the center, the answer should be 0
