@@ -4,7 +4,7 @@ difficulty: medium
 topic: greedy, arrays, math
 problem_link: https://leetcode.com/problems/gas-station/description/
 tries: 1
-created: 2026-02-12
+created: 2026-02-13
 
 notes:
 so we are given two arrays, one with the amount of gas at each station 
