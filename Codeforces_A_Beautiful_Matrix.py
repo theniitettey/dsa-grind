@@ -11,7 +11,7 @@ so we are given a 5x5 matrix with 24 zeroes and one 1
 we need to find the number of moves required to move the 1 to the center
 a move consists of swapping the 1 with an adjacent element (up, down, left, right)
 to solve this we need to understand a few things first:
-what exactly are we doing? yeah... appaarently we need to know
+what exactly are we doing? yeah... apparently we need to know
 at first when i see questions with min, minimum, least etc... they used to scare me
 until i really started to think of it this way, you don't need to be utterly greedy
 you just need to be greedy enough to find a solution 
@@ -29,7 +29,7 @@ House 4 --------------------------- House 5 --------------------------- House 6
 |                                      |                                      |  
 House 7 --------------------------- House 8 --------------------------- House 9
 ps: it took a lot of tabs and spaces to make this diagram, but i think it is worth it
-if we want to get  to house 5 from house 8, we can either to go left, go up and go right
+if we want to get to house 5 from house 8, we can either to go left, go up and go right
 or we can go up, go right and go down or from 8 we should just go up since there is a direct path to 5
 the other paths need 3 moves, but the direct path only needs 1 move
 so we can see that the minimum number of moves is 1, and we can see that
@@ -51,7 +51,7 @@ so x-move = 1 - 1 = 0 and y-moves = 1 - 2 = -1, but one thing, moves are absolut
 so we need to take the absolute value of the moves, so x-move = abs(1 - 1) = 0 and y-move = abs(1 - 2) = 1
 so total moves = x-move + y-move = 0 + 1 = 1, and from the visual example and the calculation, 
 we can see that the answer is correct, they're both 1, so we can just apply this logic to the problem
-except with a little twist... for the house problem, we know our current state before hand
+except with a little twist... for the house problem, we know our current state beforehand
 but in this problem, we don't know our current state, we need to find it first
 however we know what our goal state is, we need to get to the center of the matrix at point (2, 2)
 so we can just iterate through the matrix to find the current state first
