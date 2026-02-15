@@ -4,7 +4,7 @@ difficulty: easy
 topic: sorting, greedy, arrays
 problem_link: https://leetcode.com/problems/minimum-number-of-moves-to-seat-everyone
 tries: 1
-created: 2026-02-12
+created: 2026-02-14
 
 notes:
 so there are n available seats and n students standing
