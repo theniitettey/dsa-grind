@@ -1,6 +1,6 @@
 <!-- GRIND_BADGES -->
 
-![Solved](https://img.shields.io/badge/Solved-30-blue?style=for-the-badge) ![Streak](https://img.shields.io/badge/Streak-2%20Days-orange?style=for-the-badge) ![Longest Streak](https://img.shields.io/badge/Longest%20Streak-16%20Days-red?style=for-the-badge) ![Time Spent](https://img.shields.io/badge/Time%20Spent-1h%200m-success?style=for-the-badge)
+![Solved](https://img.shields.io/badge/Solved-30-blue?style=for-the-badge) ![Streak](https://img.shields.io/badge/Streak-4%20Days-orange?style=for-the-badge) ![Longest Streak](https://img.shields.io/badge/Longest%20Streak-16%20Days-red?style=for-the-badge) ![Time Spent](https://img.shields.io/badge/Time%20Spent-1h%200m-success?style=for-the-badge)
 
 <!-- GRIND_BADGES_END -->
 
