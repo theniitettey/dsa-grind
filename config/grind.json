@@ -27,39 +27,51 @@
     }
   },
   "optimization": {
-    "last_update": "2026-02-25",
+    "last_update": "2026-02-26",
     "total_files_scanned": 30,
     "cache": {
       "total_solved": 30,
       "total_time_mins": 60,
-      "current_streak": 2,
+      "current_streak": 1,
       "longest_streak": 16,
-      "last_activity_date": "2026-02-24",
+      "last_activity_date": "2026-02-25",
       "topics": {
-        "math": 9,
-        "implementation": 10,
-        "strings": 9,
-        "arrays": 24,
         "hash tables": 11,
-        "geometry": 1,
         "hash sets": 4,
-        "matrix": 1,
+        "arrays": 24,
+        "strings": 9,
+        "implementation": 10,
         "sorting": 1,
         "greedy": 2,
         "counting": 1,
         "prefix sums": 1,
         "hashing": 1,
+        "math": 9,
+        "geometry": 1,
+        "two pointers": 1,
         "voting algorithm": 1,
-        "two pointers": 1
+        "matrix": 1
       }
     }
   },
   "stats": {
     "total_solved": 30,
     "platforms": {
+      "LeetCode": {
+        "count": 19,
+        "easy": 13,
+        "medium": 6,
+        "hard": 0
+      },
       "Codeforces": {
         "count": 6,
         "easy": 6,
+        "medium": 0,
+        "hard": 0
+      },
+      "GeeksForGeeks": {
+        "count": 3,
+        "easy": 3,
         "medium": 0,
         "hard": 0
       },
@@ -68,20 +80,8 @@
         "easy": 2,
         "medium": 0,
         "hard": 0
-      },
-      "LeetCode": {
-        "count": 19,
-        "easy": 13,
-        "medium": 6,
-        "hard": 0
-      },
-      "GeeksForGeeks": {
-        "count": 3,
-        "easy": 3,
-        "medium": 0,
-        "hard": 0
       }
     },
-    "last_scan_timestamp": "2026-02-25"
+    "last_scan_timestamp": "2026-02-26"
   }
 }
