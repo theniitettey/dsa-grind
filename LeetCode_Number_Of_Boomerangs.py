@@ -4,7 +4,7 @@ difficulty: medium
 topic: hash tables, math, implementation
 problem_link: https://leetcode.com/problems/number-of-boomerangs/description/
 tries: 1
-created: 2026-02-26
+created: 2026-02-28
 
 notes:
 so we are given a list of points, and we need to find the number of boomerangs. 
