@@ -32,52 +32,52 @@
     "cache": {
       "total_solved": 30,
       "total_time_mins": 60,
-      "current_streak": 1,
+      "current_streak": 2,
       "longest_streak": 16,
       "last_activity_date": "2026-03-26",
       "topics": {
-        "hash tables": 11,
-        "hash sets": 4,
-        "arrays": 24,
-        "strings": 9,
         "implementation": 10,
-        "sorting": 1,
+        "arrays": 24,
+        "matrix": 1,
+        "hash tables": 11,
+        "strings": 9,
         "greedy": 2,
+        "math": 9,
+        "hash sets": 4,
+        "sorting": 1,
+        "voting algorithm": 1,
+        "two pointers": 1,
         "counting": 1,
         "prefix sums": 1,
         "hashing": 1,
-        "math": 9,
-        "geometry": 1,
-        "two pointers": 1,
-        "voting algorithm": 1,
-        "matrix": 1
+        "geometry": 1
       }
     }
   },
   "stats": {
     "total_solved": 30,
     "platforms": {
-      "LeetCode": {
-        "count": 19,
-        "easy": 13,
-        "medium": 6,
-        "hard": 0
-      },
       "Codeforces": {
         "count": 6,
         "easy": 6,
         "medium": 0,
         "hard": 0
       },
-      "GeeksForGeeks": {
-        "count": 3,
-        "easy": 3,
-        "medium": 0,
+      "LeetCode": {
+        "count": 19,
+        "easy": 13,
+        "medium": 6,
         "hard": 0
       },
       "HackerRank": {
         "count": 2,
         "easy": 2,
+        "medium": 0,
+        "hard": 0
+      },
+      "GeeksForGeeks": {
+        "count": 3,
+        "easy": 3,
         "medium": 0,
         "hard": 0
       }
