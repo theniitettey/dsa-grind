@@ -4,7 +4,7 @@ difficulty: easy
 topic: strings, two pointers, arrays
 problem_link: https://leetcode.com/problems/reverse-string/
 tries: 1
-created: 2026-03-31
+created: 2026-04-02
 
 notes:
 we are given an array of characters, and we need to reverse the array in place. there are two common approaches to solve this problem:
