@@ -32,25 +32,25 @@
     "cache": {
       "total_solved": 30,
       "total_time_mins": 60,
-      "current_streak": 1,
+      "current_streak": 2,
       "longest_streak": 16,
       "last_activity_date": "2026-04-27",
       "topics": {
         "arrays": 24,
-        "hash tables": 11,
-        "voting algorithm": 1,
-        "implementation": 10,
         "strings": 9,
-        "two pointers": 1,
-        "math": 9,
-        "hashing": 1,
-        "sorting": 1,
-        "greedy": 2,
         "hash sets": 4,
-        "geometry": 1,
-        "matrix": 1,
+        "hash tables": 11,
+        "implementation": 10,
+        "greedy": 2,
+        "math": 9,
         "counting": 1,
-        "prefix sums": 1
+        "prefix sums": 1,
+        "sorting": 1,
+        "geometry": 1,
+        "voting algorithm": 1,
+        "matrix": 1,
+        "two pointers": 1,
+        "hashing": 1
       }
     }
   },
@@ -63,6 +63,12 @@
         "medium": 6,
         "hard": 0
       },
+      "GeeksForGeeks": {
+        "count": 3,
+        "easy": 3,
+        "medium": 0,
+        "hard": 0
+      },
       "HackerRank": {
         "count": 2,
         "easy": 2,
@@ -72,12 +78,6 @@
       "Codeforces": {
         "count": 6,
         "easy": 6,
-        "medium": 0,
-        "hard": 0
-      },
-      "GeeksForGeeks": {
-        "count": 3,
-        "easy": 3,
         "medium": 0,
         "hard": 0
       }
