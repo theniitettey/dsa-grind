@@ -27,42 +27,36 @@
     }
   },
   "optimization": {
-    "last_update": "2026-06-11",
+    "last_update": "2026-06-12",
     "total_files_scanned": 30,
     "cache": {
       "total_solved": 30,
       "total_time_mins": 60,
-      "current_streak": 2,
+      "current_streak": 1,
       "longest_streak": 16,
-      "last_activity_date": "2026-06-10",
+      "last_activity_date": "2026-06-11",
       "topics": {
         "arrays": 24,
-        "implementation": 10,
-        "math": 9,
-        "strings": 9,
-        "two pointers": 1,
-        "hash tables": 11,
-        "matrix": 1,
-        "hash sets": 4,
-        "greedy": 2,
-        "sorting": 1,
         "counting": 1,
         "prefix sums": 1,
-        "voting algorithm": 1,
+        "strings": 9,
+        "hash sets": 4,
+        "hash tables": 11,
+        "two pointers": 1,
+        "math": 9,
+        "implementation": 10,
         "geometry": 1,
-        "hashing": 1
+        "greedy": 2,
+        "sorting": 1,
+        "hashing": 1,
+        "matrix": 1,
+        "voting algorithm": 1
       }
     }
   },
   "stats": {
     "total_solved": 30,
     "platforms": {
-      "HackerRank": {
-        "count": 2,
-        "easy": 2,
-        "medium": 0,
-        "hard": 0
-      },
       "LeetCode": {
         "count": 19,
         "easy": 13,
@@ -80,8 +74,14 @@
         "easy": 3,
         "medium": 0,
         "hard": 0
+      },
+      "HackerRank": {
+        "count": 2,
+        "easy": 2,
+        "medium": 0,
+        "hard": 0
       }
     },
-    "last_scan_timestamp": "2026-06-11"
+    "last_scan_timestamp": "2026-06-12"
   }
 }
