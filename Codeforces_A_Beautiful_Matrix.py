@@ -25,7 +25,8 @@ House 1 --------------------------- House 2 --------------------------- House 3
 House 4 --------------------------- House 5 --------------------------- House 6
 |                                      |                                      |                                  
 |                                      |                                      |
-|                                      |                                      |                                     |                                      |                                      |
+|                                      |                                      |                                     |
+|                                      |                                      |
 |                                      |                                      |  
 House 7 --------------------------- House 8 --------------------------- House 9
 ps: it took a lot of tabs and spaces to make this diagram, but i think it is worth it
