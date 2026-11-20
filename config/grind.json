@@ -32,25 +32,25 @@
     "cache": {
       "total_solved": 30,
       "total_time_mins": 60,
-      "current_streak": 1,
+      "current_streak": 2,
       "longest_streak": 16,
       "last_activity_date": "2026-11-19",
       "topics": {
         "arrays": 24,
-        "hash tables": 11,
         "strings": 9,
+        "hash tables": 11,
         "hash sets": 4,
-        "implementation": 10,
-        "math": 9,
-        "two pointers": 1,
-        "sorting": 1,
         "greedy": 2,
+        "math": 9,
+        "implementation": 10,
         "matrix": 1,
+        "sorting": 1,
+        "hashing": 1,
+        "two pointers": 1,
         "counting": 1,
         "prefix sums": 1,
-        "hashing": 1,
-        "geometry": 1,
-        "voting algorithm": 1
+        "voting algorithm": 1,
+        "geometry": 1
       }
     }
   },
